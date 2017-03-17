@@ -1,0 +1,460 @@
+{
+   "nodes":[
+	  {
+		 "keyword":[
+			"Text Segmentation"
+		 ],
+		 "id":[
+			"8"
+		 ],
+		 "sumbu_x":"Test corpus",
+		 "sumbu_y":"2011",
+		 "children":[
+			{
+			   "id":"8",
+			   "judul":"An Efficient Linear Text Segmentation Algorithm Using Hierarchical Agglomerative Clustering",
+			   "peneliti":"Ji-Wei Wu",
+			   "tahun_publikasi":"2011",
+			   "masalah":"Efficient linear text \r\nsegmentation",
+			   "deskripsi_masalah":"Efficient linear text \r\nsegmentation algorithm based on hierarchical agglomerative \r\nclustering",
+			   "keyword":"Text Segmentation",
+			   "domain_data":"Test corpus",
+			   "deskripsi_domain_data":"Test corpus consists of 700 samples. A \r\nsample is a concatenation of ten text segments. The 700 samples are divided into 4 sets according to the range of the number of sentences",
+			   "metode":"Hierarchical learning strategy",
+			   "deskripsi_metode":"Tokenization, stopword removal, \r\nand stemming. After text preprocessing, the text can be represented \r\nas vectors, each of which represents a sentence within the \r\ntext. A part of sentence similarities are then computed to \r\nconstruct the sentence-similarity matrix. Finally, the optimal \r\ntopic boundaries are identified by the proposed algorithm. ",
+			   "hasil":"Linear text segmentation \r\nalgorithm (i.e., TSHAC) outperforms the linear time algorithm, TextTiling. TSHAC also provides comparable results with other algorithms. TSHAC provides a fully automatic process for linear text segmentation without auxiliary knowledge base, parameter setting, or user involvement.",
+			   "creater":""
+			}
+		 ],
+		 "size":1
+	  },
+	  {
+		 "keyword":[
+			"Feature Selection"
+		 ],
+		 "id":[
+			"10"
+		 ],
+		 "sumbu_x":"Chinese text classification corpus",
+		 "sumbu_y":"2005",
+		 "children":[
+			{
+			   "id":"10",
+			   "judul":"A New Approach to Feature Selection in Text Classification",
+			   "peneliti":"Yi Wang, Xiao-Jing Wang",
+			   "tahun_publikasi":"2005",
+			   "masalah":"New approach to feature selection to do feature reduction",
+			   "deskripsi_masalah":"New approach to feature selection to do feature reduction, which is a constituent process in representing texts.",
+			   "keyword":"Feature Selection",
+			   "domain_data":"Chinese text classification corpus",
+			   "deskripsi_domain_data":"Divide the corpus into two non-intersected sets: a training set containing 10 categories with 100 texts in each and a test set containing the same 10 categories with another 100 texts in each also",
+			   "metode":"Variance-mean based feature filtering",
+			   "deskripsi_metode":"Variance-mean based feature filtering method of feature selection to do feature reduction in the representation phase.",
+			   "hasil":"Variance-mean method can gain higher performance at a very low dimension, and quickly reach a peak, which means much less computing time and almost best performance than DF, CHI.",
+			   "creater":""
+			}
+		 ],
+		 "size":1
+	  },
+	  {
+		 "keyword":[
+			"Text Clustering"
+		 ],
+		 "id":[
+			"11"
+		 ],
+		 "sumbu_x":"Five test data sets(CACM, MED, EXC, PEO and TOP)",
+		 "sumbu_y":"2008",
+		 "children":[
+			{
+			   "id":"11",
+			   "judul":"Text Clustering with Feature Selection by Using Statistical Data",
+			   "peneliti":"Yanjun Li, Congnan Luo, Soon M. Chung",
+			   "tahun_publikasi":"2008",
+			   "masalah":"Extended the X2 term-category indepen-\r\ndence test",
+			   "deskripsi_masalah":"Extended the X2 term-category independence test by introducing new statistical data that can measure whether the dependency between a term and a category is positive or negative, developed a new supervised feature selection method, named CHIR, which is based on the X2 statistic and the new term-category dependency measure.",
+			   "keyword":"Text Clustering",
+			   "domain_data":"Five test data sets(CACM, MED, EXC, PEO and TOP)",
+			   "deskripsi_domain_data":"Two data sets,CACM and MED, are extracted from the CACM and MEDLINE abstracts, respectively, which are included in the Classic database. Additional three data sets, EXC, PEO and TOP,are from the EXCHANGES, PEOPLE and TOPICS category sets\r\nof the Reuters-21578 Distribution 1.0",
+			   "metode":"TCFS",
+			   "deskripsi_metode":"Text Clustering with Feature Selection (TCFS), which performs the clustering and the supervised feature selection alternately until convergence.",
+			   "hasil":"CHIR consistently out-performs other three methods in terms of increasing the cohesiveness values of the clusters.",
+			   "creater":""
+			}
+		 ],
+		 "size":1
+	  },
+	  {
+		 "keyword":[
+			"Clustering Feature Selection"
+		 ],
+		 "id":[
+			"12"
+		 ],
+		 "sumbu_x":"Gisette, Optdigits, covtype, hyperspectral image",
+		 "sumbu_y":"2009",
+		 "children":[
+			{
+			   "id":"12",
+			   "judul":"Clustering-Based Feature Selection in Semi-supervised Problems",
+			   "peneliti":"Ianisse Quinz\u00e1n, Jos\u00e9 M. Sotoca, Filiberto Pla ",
+			   "tahun_publikasi":"2009",
+			   "masalah":"Unlabeled information can improve significant classification result",
+			   "deskripsi_masalah":"Unlabeled information can improve significant classification result",
+			   "keyword":"Clustering Feature Selection",
+			   "domain_data":"Gisette, Optdigits, covtype, hyperspectral image",
+			   "deskripsi_domain_data":"Gisette is a big data in the UCI repository, with 5000 attributes and 13500 objects, 7000 of them labelled. Optdigits problem is about the recognition of a handwritten number. The database has 5620 samples and 64 features.Covtype database, the objective is predicting forest \r\ncover type from cartographic variables, with no remotely sensed data. This database has 54 features, 581012 objects and 7 classes. A hyperspectral image called 92AV3C corresponding to a spectral image (145 x 145 pixels, 220 bands, and 17 classes).",
+			   "metode":"Hybrid method (combines supervised and \r\nunsupervised measures of information)",
+			   "deskripsi_metode":"A new hybrid method for semi-supervised \r\nproblem which combines supervised and unsupervised measures of information. This approach applies a strategy to obtain a feature subset through clustering techniques.",
+			   "hasil":"The unsupervised information improves the accuracy and the ssfc method is adequate.\r\nOptdigits is a database where sup technique gets high-quality features for few labeled samples. Thus, in this case \r\nthe ssfc has similar performance than sup. Nevertheless when the number of labeled samples is increased, ssfc and sup become similar to supT. ",
+			   "creater":""
+			}
+		 ],
+		 "size":1
+	  },
+	  {
+		 "keyword":[
+			"Clustering Feature Selection"
+		 ],
+		 "id":[
+			"13",
+			"16",
+			"17"
+		 ],
+		 "sumbu_x":"Gisette, Optdigits, covtype, hyperspectral image",
+		 "sumbu_y":"2005",
+		 "children":[
+			{
+			   "id":"13",
+			   "judul":"DUMMY 1",
+			   "peneliti":"PENGARANG 1",
+			   "tahun_publikasi":"2005",
+			   "masalah":"Improve the performance of linear text segmentation",
+			   "deskripsi_masalah":"Improve the performance of linear text segmentation",
+			   "keyword":"Discrete Particle Swarm",
+			   "domain_data":"Gisette, Optdigits, covtype, hyperspectral image",
+			   "deskripsi_domain_data":"Choi test corpus consists of 700 samples. A sample is a concatenation of ten text segments and each segment is the first in sentences of a randomly selected document from the Brown corpus.",
+			   "metode":"DPSO-SEG",
+			   "deskripsi_metode":"The goal of DPSO-SEG is to identify the optimal topic boundaries of the text segments in a document.  At first, the \r\nterms within each sentence are tokenized and stemmed. Then, generic stop words are removed.  After the basic \r\npreprocessing, each sentence is represented as a term-frequency vector. Then, sentence-sentence similarity \r\nbetween a pair of sentences is computed by cosine similarity. A sentence similarity matrix of the text then constructed using the sentence-sentence similarity. Finally, the optimal \r\nboundaries are created by DPSO according to the sentence similarity matrix. ",
+			   "hasil":"The value of Pk is reduced sharply with fewer numbers of iterations, and smoothly after 350 iterations. It is converged at about 1500 iterations. the performance of DPSO-SEGC99 is better than DPSO-SEG. DPSO-SEGC99 also converges faster.",
+			   "creater":""
+			},
+			{
+			   "id":"16",
+			   "judul":"DUMMY 2",
+			   "peneliti":"DUMMY 2",
+			   "tahun_publikasi":"2005",
+			   "masalah":"Dynamically determine the tree span for relation extraction by exploiting constituent dependencies",
+			   "deskripsi_masalah":"Dynamically determine the tree span for relation extraction by exploiting constituent dependencies to integrate dependency information, which has been proven very useful to relation extraction, with the structured syntactic information to construct a concise and effective tree span specifically targeted for relation extraction. Explore interesting combined entity features for relation extraction via a unified parse and semantic tree. ",
+			   "keyword":"Constituent Dependencies",
+			   "domain_data":"Gisette, Optdigits, covtype, hyperspectral image",
+			   "deskripsi_domain_data":"ACE RDC 2004 corpus as the benchmark data that contains 451 documents and 5702 relation instances. It defines 7 entity types, 7 major relation types and 23 subtypes",
+			   "metode":"Condense NounPhrases (NPs)\r\n",
+			   "deskripsi_metode":"(1) Modification within base-NPs \r\n(2) Modification to NPs\r\n(3)Arguments\/adjuncts to verbs\r\n(4)Coordination conjunctions\r\n(5)Modification to other constituents",
+			   "hasil":"the improvements of different tree setups over SPT. DSPT performs best among DSPT, SPT, CS-SPT. It also shows that the Unified Parse and Semantic Tree with Feature-Paired Tree perform significantly better than the other two tree setups (i.e., CS-SPT and DSPT).",
+			   "creater":""
+			},
+			{
+			   "id":"17",
+			   "judul":"DUMMY 3",
+			   "peneliti":"DUMMY 3",
+			   "tahun_publikasi":"2005",
+			   "masalah":"Supervised RE",
+			   "deskripsi_masalah":"Improve the performance of RE by considering the relationship between our relations of interest, as well as how they relate to some existing knowledge resources",
+			   "keyword":"Background Knowledge",
+			   "domain_data":"Gisette, Optdigits, covtype, hyperspectral image",
+			   "deskripsi_domain_data":"ACE-2004 dataset (catalog LDC2005T09 from the Linguistic Data Consortium) to conduct our experiments. ACE-2004 defines 7 coarse-grained relations and 23 fine-grained relations",
+			   "metode":"Coarse-grained predictions",
+			   "deskripsi_metode":"Using the coarse-grained predictions which should intuitively be more reliable, to improve the fine-grained predictions.Using Novel to contrain the predictions of the fine-grained.",
+			   "hasil":"Performing the usual evaluation on mentions gives similar performance figures. All the background knowledge helped to improve performance, providing a total improvement of 3.9 to our basic RE system. Improves the performance of coarse-grained relation predictions.",
+			   "creater":""
+			}
+		 ],
+		 "size":3
+	  },
+	  {
+		 "keyword":[
+			"Discrete Particle Swarm",
+			"Constituent Dependencies",
+			"Background Knowledge"
+		 ],
+		 "id":[
+			"13",
+			"16",
+			"17",
+			"19"
+		 ],
+		 "sumbu_x":"GCE-2004 dataset",
+		 "sumbu_y":"2010",
+		 "children":[
+			{
+			   "id":"13",
+			   "judul":"A Discrete Particle Swarm Optimization Algorithm for Domain Independent Linear Text Segmentation",
+			   "peneliti":"Ji-Wei Wu, Judy C.R. Tseng, Wen-Nung Tsai ",
+			   "tahun_publikasi":"2010",
+			   "masalah":"Improve the performance of linear text segmentation",
+			   "deskripsi_masalah":"Improve the performance of linear text segmentation",
+			   "keyword":"Discrete Particle Swarm",
+			   "domain_data":"GCE-2004 dataset",
+			   "deskripsi_domain_data":"Choi test corpus consists of 700 samples. A sample is a concatenation of ten text segments and each segment is the first in sentences of a randomly selected document from the Brown corpus.",
+			   "metode":"DPSO-SEG",
+			   "deskripsi_metode":"The goal of DPSO-SEG is to identify the optimal topic boundaries of the text segments in a document.  At first, the \r\nterms within each sentence are tokenized and stemmed. Then, generic stop words are removed.  After the basic \r\npreprocessing, each sentence is represented as a term-frequency vector. Then, sentence-sentence similarity \r\nbetween a pair of sentences is computed by cosine similarity. A sentence similarity matrix of the text then constructed using the sentence-sentence similarity. Finally, the optimal \r\nboundaries are created by DPSO according to the sentence similarity matrix. ",
+			   "hasil":"The value of Pk is reduced sharply with fewer numbers of iterations, and smoothly after 350 iterations. It is converged at about 1500 iterations. the performance of DPSO-SEGC99 is better than DPSO-SEG. DPSO-SEGC99 also converges faster.",
+			   "creater":""
+			},
+			{
+			   "id":"16",
+			   "judul":"Exploiting Constituent Dependencies for Tree Kernel-Based Semantic Relation Extraction",
+			   "peneliti":"Longhua Qian   Guodong Zhou   Fang Kong   Qiaoming Zhu   Peide Qian ",
+			   "tahun_publikasi":"2010",
+			   "masalah":"Dynamically determine the tree span for relation extraction by exploiting constituent dependencies",
+			   "deskripsi_masalah":"Dynamically determine the tree span for relation extraction by exploiting constituent dependencies to integrate dependency information, which has been proven very useful to relation extraction, with the structured syntactic information to construct a concise and effective tree span specifically targeted for relation extraction. Explore interesting combined entity features for relation extraction via a unified parse and semantic tree. ",
+			   "keyword":"Constituent Dependencies",
+			   "domain_data":"GCE-2004 dataset",
+			   "deskripsi_domain_data":"ACE RDC 2004 corpus as the benchmark data that contains 451 documents and 5702 relation instances. It defines 7 entity types, 7 major relation types and 23 subtypes",
+			   "metode":"Condense NounPhrases (NPs)\r\n",
+			   "deskripsi_metode":"(1) Modification within base-NPs \r\n(2) Modification to NPs\r\n(3)Arguments\/adjuncts to verbs\r\n(4)Coordination conjunctions\r\n(5)Modification to other constituents",
+			   "hasil":"the improvements of different tree setups over SPT. DSPT performs best among DSPT, SPT, CS-SPT. It also shows that the Unified Parse and Semantic Tree with Feature-Paired Tree perform significantly better than the other two tree setups (i.e., CS-SPT and DSPT).",
+			   "creater":""
+			},
+			{
+			   "id":"17",
+			   "judul":"Exploiting Background Knowledge for Relation Extraction",
+			   "peneliti":"Yee Seng Chan and Dan Roth",
+			   "tahun_publikasi":"2010",
+			   "masalah":"Supervised RE",
+			   "deskripsi_masalah":"Improve the performance of RE by considering the relationship between our relations of interest, as well as how they relate to some existing knowledge resources",
+			   "keyword":"Background Knowledge",
+			   "domain_data":"GCE-2004 dataset",
+			   "deskripsi_domain_data":"ACE-2004 dataset (catalog LDC2005T09 from the Linguistic Data Consortium) to conduct our experiments. ACE-2004 defines 7 coarse-grained relations and 23 fine-grained relations",
+			   "metode":"Coarse-grained predictions",
+			   "deskripsi_metode":"Using the coarse-grained predictions which should intuitively be more reliable, to improve the fine-grained predictions.Using Novel to contrain the predictions of the fine-grained.",
+			   "hasil":"Performing the usual evaluation on mentions gives similar performance figures. All the background knowledge helped to improve performance, providing a total improvement of 3.9 to our basic RE system. Improves the performance of coarse-grained relation predictions.",
+			   "creater":""
+			},
+			{
+			   "id":"19",
+			   "judul":"DUMMY 4",
+			   "peneliti":"DUMMY 4",
+			   "tahun_publikasi":"2010",
+			   "masalah":"Extract structured relations between named entities",
+			   "deskripsi_masalah":"Extract structured relations between named entities (e.g., a company name, a location name, or a name of a drug or a disease) from unstructured documents with minimal human effort. ",
+			   "keyword":"Partially Supervised Relation Extraction",
+			   "domain_data":"Three relations extracted",
+			   "deskripsi_domain_data":"Three relations extracted from a collection of 145,000 articles from the New York Times from 1996, available as part of the North American News Text Corpus1.",
+			   "metode":"Expectation Maximization (EM)",
+			   "deskripsi_metode":"Expectation Maximization (EM) algorithms for estimating pattern and tuple confidence.",
+			   "hasil":"The EM-based methods have higher accuracy than the constraint-based method",
+			   "creater":""
+			}
+		 ],
+		 "size":4
+	  },
+	  {
+		 "keyword":[
+			"DUMMY ",
+			"Constituent Dependencies",
+			"Background Knowledge"
+		 ],
+		 "id":[
+			"13",
+			"16",
+			"17"
+		 ],
+		 "sumbu_x":"Three relations extracted",
+		 "sumbu_y":"2010",
+		 "children":[
+			{
+			   "id":"13",
+			   "judul":"DUMMY 1",
+			   "peneliti":"PENGARANG 1",
+			   "tahun_publikasi":"2010",
+			   "masalah":"Improve the performance of linear text segmentation",
+			   "deskripsi_masalah":"Improve the performance of linear text segmentation",
+			   "keyword":"Discrete Particle Swarm",
+			   "domain_data":"Three relations extracted",
+			   "deskripsi_domain_data":"Choi test corpus consists of 700 samples. A sample is a concatenation of ten text segments and each segment is the first in sentences of a randomly selected document from the Brown corpus.",
+			   "metode":"DPSO-SEG",
+			   "deskripsi_metode":"The goal of DPSO-SEG is to identify the optimal topic boundaries of the text segments in a document.  At first, the \r\nterms within each sentence are tokenized and stemmed. Then, generic stop words are removed.  After the basic \r\npreprocessing, each sentence is represented as a term-frequency vector. Then, sentence-sentence similarity \r\nbetween a pair of sentences is computed by cosine similarity. A sentence similarity matrix of the text then constructed using the sentence-sentence similarity. Finally, the optimal \r\nboundaries are created by DPSO according to the sentence similarity matrix. ",
+			   "hasil":"The value of Pk is reduced sharply with fewer numbers of iterations, and smoothly after 350 iterations. It is converged at about 1500 iterations. the performance of DPSO-SEGC99 is better than DPSO-SEG. DPSO-SEGC99 also converges faster.",
+			   "creater":""
+			},
+			{
+			   "id":"16",
+			   "judul":"DUMMY 2",
+			   "peneliti":"PENGARANG 2",
+			   "tahun_publikasi":"2010",
+			   "masalah":"Dynamically determine the tree span for relation extraction by exploiting constituent dependencies",
+			   "deskripsi_masalah":"Dynamically determine the tree span for relation extraction by exploiting constituent dependencies to integrate dependency information, which has been proven very useful to relation extraction, with the structured syntactic information to construct a concise and effective tree span specifically targeted for relation extraction. Explore interesting combined entity features for relation extraction via a unified parse and semantic tree. ",
+			   "keyword":"Constituent Dependencies",
+			   "domain_data":"Three relations extracted",
+			   "deskripsi_domain_data":"ACE RDC 2004 corpus as the benchmark data that contains 451 documents and 5702 relation instances. It defines 7 entity types, 7 major relation types and 23 subtypes",
+			   "metode":"Condense NounPhrases (NPs)\r\n",
+			   "deskripsi_metode":"(1) Modification within base-NPs \r\n(2) Modification to NPs\r\n(3)Arguments\/adjuncts to verbs\r\n(4)Coordination conjunctions\r\n(5)Modification to other constituents",
+			   "hasil":"the improvements of different tree setups over SPT. DSPT performs best among DSPT, SPT, CS-SPT. It also shows that the Unified Parse and Semantic Tree with Feature-Paired Tree perform significantly better than the other two tree setups (i.e., CS-SPT and DSPT).",
+			   "creater":""
+			}
+		 ],
+		 "size":2
+	  },
+	  {
+		 "keyword":[
+			"First Order Statistics"
+		 ],
+		 "id":[
+			"14"
+		 ],
+		 "sumbu_x":"DNA microarray",
+		 "sumbu_y":"2012",
+		 "children":[
+			{
+			   "id":"14",
+			   "judul":"First Order Statistics Based Feature Selection: A Diverse and Powerful Family of Feature Seleciton Techniques",
+			   "peneliti":"Taghi Khoshgoftaar, David Dittman, Randall Wald, and Alireza Fazelpour",
+			   "tahun_publikasi":"2012",
+			   "masalah":"First Order Statistics (FOS) based feature selection",
+			   "deskripsi_masalah":"First Order Statistics (FOS) based feature selection using seven related univariate\r\nfeature selection metrics",
+			   "keyword":"First Order Statistics",
+			   "domain_data":"DNA microarray",
+			   "deskripsi_domain_data":"The datasets are all DNA microarray datasets acquired from a number of different real world bioinformatics, genetics, and medical projects. Use datasets with two classes for example:\r\ncancerous\/non-cancerous or relapse\/no relapse). ",
+			   "metode":"Datasets, feature subset size, similarity measure, and classification",
+			   "deskripsi_metode":"Datasets, feature subset size, similarity measure, and classification",
+			   "hasil":"Twenty one possible pairwise comparisons only one combination is above a 0.7 similarity across all twelve feature subset sizes: Fold Change Difference and SAM. Outside of this pair only four other pairs (S2N and Welch T Statistic, Signal to Noise and SAM, Fold Change Difference and Fisher Score, and Welch T Statistic and SAM) achieve a similarity score above 0.7 and only the combination of Welch T Statistic and Fisher Score achieves this below a feature subset size of 500",
+			   "creater":""
+			}
+		 ],
+		 "size":1
+	  },
+	  {
+		 "keyword":[
+			"Relation Extraction"
+		 ],
+		 "id":[
+			"15"
+		 ],
+		 "sumbu_x":"Synonym dictionary for genes\/proteins",
+		 "sumbu_y":"2007",
+		 "children":[
+			{
+			   "id":"15",
+			   "judul":"Relation extraction using dependency parse trees",
+			   "peneliti":"Katrin Fundel, Robert Ku\u00a8ffner, Ralf Zimmer",
+			   "tahun_publikasi":"2007",
+			   "masalah":"Relation extraction from free text",
+			   "deskripsi_masalah":"The use of dependency parse trees as a means for biomedical relation extraction from free text. It is based on natural language preprocessing producing dependency parse trees and applying a small number of simple rules to these trees. ",
+			   "keyword":"Relation Extraction",
+			   "domain_data":"Synonym dictionary for genes\/proteins",
+			   "deskripsi_domain_data":"Synonym dictionary for genes\/proteins, a training set (55 sentences and 103 interactions) and a test set (80 sentences and 54 interactions).",
+			   "metode":"Effector-relation-effectee, relation-of-effectee-by-effector, relation-between-effector-and-effectee",
+			   "deskripsi_metode":"(1) effector-relation-effectee (\u2018A activates B\u2019)\r\n(2) relation-of-effectee-by-effector (\u2018Activation of A by B\u2019)\r\n(3) relation-between-effector-and-effectee (\u2018Interaction between A\r\nand B\u2019).",
+			   "hasil":"HPRD, even though being a very large\r\nand valuable source for protein interaction data, currently covers\r\nonly a small part of the human protein-protein relations from very limited relation categories. RelEx provides complementary information.",
+			   "creater":""
+			}
+		 ],
+		 "size":1
+	  },
+	  {
+		 "keyword":[
+			"Automatic Evaluation"
+		 ],
+		 "id":[
+			"18"
+		 ],
+		 "sumbu_x":"ReVerb and SONEX",
+		 "sumbu_y":"2012",
+		 "children":[
+			{
+			   "id":"18",
+			   "judul":"Automatic Evaluation of Relation Extraction Systems on Large-scale",
+			   "peneliti":"Mirko Bronzi, Zhaochen Guo, Filipe Mesquita",
+			   "tahun_publikasi":"2012",
+			   "masalah":"Framework for large-scale evaluation of relation extraction systems",
+			   "deskripsi_masalah":"Framework for large-scale\r\nevaluation of relation extraction systems based on an automatic annotator that uses a public online database and a large web corpus.",
+			   "keyword":"Automatic Evaluation",
+			   "domain_data":"ReVerb and SONEX",
+			   "deskripsi_domain_data":"Compare two open RE systems: ReVerb and SONEX. The input corpus for this comparison is the New York Times corpus, composed by 1.8 million documents. ReVerb  extracts relational phrases using rules over part-of-speech tags and noun-phrase chunks.",
+			   "metode":"Automatic annotator",
+			   "deskripsi_metode":"Use of an automatic annotator: a system capable of verifying whether or not a fact was correctly extracted. This is done by leveraging external sources of data and text, which are not available to the systems being evaluated",
+			   "hasil":"About 63 million facts in G', the superset of the ground truth G. ",
+			   "creater":""
+			}
+		 ],
+		 "size":1
+	  },
+	  {
+		 "keyword":[
+			"Partially Supervised Relation Extraction"
+		 ],
+		 "id":[
+			"19"
+		 ],
+		 "sumbu_x":"Three relations extracted",
+		 "sumbu_y":"2006",
+		 "children":[
+			{
+			   "id":"19",
+			   "judul":"Confidence Estimation Methods for Partially Supervised Relation Extraction",
+			   "peneliti":"Eugene Agichtein",
+			   "tahun_publikasi":"2006",
+			   "masalah":"Extract structured relations between named entities",
+			   "deskripsi_masalah":"Extract structured relations between named entities (e.g., a company name, a location name, or a name of a drug or a disease) from unstructured documents with minimal human effort. ",
+			   "keyword":"Partially Supervised Relation Extraction",
+			   "domain_data":"Three relations extracted",
+			   "deskripsi_domain_data":"Three relations extracted from a collection of 145,000 articles from the New York Times from 1996, available as part of the North American News Text Corpus1.",
+			   "metode":"Expectation Maximization (EM)",
+			   "deskripsi_metode":"Expectation Maximization (EM) algorithms for estimating pattern and tuple confidence.",
+			   "hasil":"The EM-based methods have higher accuracy than the constraint-based method",
+			   "creater":""
+			}
+		 ],
+		 "size":1
+	  }
+   ],
+   "links":[
+	  {
+		 "source":"1",
+		 "target":"2",
+		 "value":1
+	  },
+	  {
+		 "source":"2",
+		 "target":"1",
+		 "value":1
+	  },
+	  {
+		 "source":"2",
+		 "target":"6",
+		 "value":1
+	  },
+	  {
+		 "source":"2",
+		 "target":"20",
+		 "value":1
+	  },
+	  {
+		 "source":"10",
+		 "target":"11",
+		 "value":1
+	  },
+	  {
+		 "source":"12",
+		 "target":"4",
+		 "value":1
+	  },
+	  {
+		 "source":"11",
+		 "target":"10",
+		 "value":1
+	  },
+	  {
+		 "source":"2",
+		 "target":"11",
+		 "value":1
+	  },
+	  {
+		 "source":"8",
+		 "target":"12",
+		 "value":1
+	  }
+   ]
+}

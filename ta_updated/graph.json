@@ -1,0 +1,10 @@
+{
+  "nodes": [
+    {"id": 1, "name": "Yuli", "value": "saya", "r":100},
+    {"id": 2, "name": "Yuli", "value": "oenang", "r":20}
+  ],
+  "links": [
+    {"source":  0, "target":  1},
+	{"source":  1, "target":  0}
+  ]
+}

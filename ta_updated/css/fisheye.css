@@ -1,0 +1,18 @@
+.circleStroke {
+	stroke: #777777 !important;
+	stroke-width: 3px !important;
+}
+
+.circleStroke2 {
+	stroke: #777777 !important;
+	stroke-width: 3px !important;
+}
+
+.zoomLabel {
+	font-size: 30px !important;
+}
+
+.circleStrokeHover {
+	stroke: #FF2A19;
+	stroke-width: 3px !important;
+}
