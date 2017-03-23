@@ -599,7 +599,7 @@
 			 
 			// Sorting sumbu X dan Y
 			// Sorting angka
-			
+			console.log("data : ", data);
 			// Fungsi apabila dipilih parameter pada sumbu x dengan nilai "Tahun Publikasi"
 			if($("#sumbuX option:selected").text() == 'Tahun Publikasi') {
 				// data.nodes = data.nodes;
@@ -1849,20 +1849,6 @@
 				return ((targetx * miring - targetx * r - sourcex * miring + sourcex * r) / miring) + sourcex;
 			}
 
-			// Cari perpotongan garis
-			function intersection(sourcex, sourcey, targetx, targety, sourcex2, sourcey2, targetx2, targety2){
-				var lineX = sourcey - targety;
-				var lineY = targetx - sourcex;
-				var lineX2 = sourcey2 - targety2;
-				var lineY2 = targetx2 - sourcex2;
-				var D = lineX * lineY2 - lineY * lineX2;
-				if (D != 0) {
-					return 1;
-				} else {
-					return 0;
-				}
-			}
-
 			// Setting data untuk link, source dan targetnya ud data node
 			var rlink = new Array();
 			if(data.links.length != 0) {
@@ -1936,6 +1922,64 @@
 				}
 			}
 			console.log(rlink);
+
+			// Cari jumlah perpotongan garis
+			function isIntersect(sourcex, sourcey, targetx, targety, sourcex2, sourcey2, targetx2, targety2){
+				var point1A = sourcey - targety;
+				var point1B = targetx - sourcex;
+				var point1C = -(sourcex * targety - targetx *sourcey);
+				var point2A = sourcey2 - targety2;
+				var point2B = targetx2 - sourcex2;
+				var point2C = -(sourcex2 * targety2 - targetx2 *sourcey2);
+
+				var D = point1A * point2B - point1B * point2A;
+				var Dx = point1C * point2B - point1B * point2C;
+				var Dy = point1A * point2C - point1C * point2A;
+
+				if (D != 0) {	
+					var x = Dx/D;
+					var y = Dy/D;
+					
+					// Jika perpotongan garis hanya diujung garis
+					if ((x == sourcex || x == sourcex2 || x == targetx || x == targetx2) || (y == sourcey || y == sourcey2 || y == targety || y == targety2)) {
+						return 0;
+					} else {
+						// Jika perpotongan garis di luar garis yang tergambar
+						if (((x > sourcex && x < targetx) || (x > targetx && x < sourcex)) && ((x > sourcex2 && x < targetx2) || (x > targetx2 && x < sourcex2)) && ((y > sourcey && y < targety) || (y > targety && y < sourcey)) && ((y > sourcey2 && y < targety2) || (y > targety2 && y < sourcey2))) {
+							// console.log("x = ", x);
+							// console.log("y = ", y);
+							return 1;
+						} else {
+							return 0;
+						}
+					}
+				} else {
+					return 0;
+				}
+			}
+
+			
+			function sumIntersection(rlink){
+				var intersect = 0;
+				for(var i = 0; i < rlink.length-1; i++) {
+					for(var j = i+1; j < rlink.length; j++) {
+						// console.log("i : ", i);
+						// console.log("j : ", j);
+						if (isIntersect((rlink[i].source.x), (rlink[i].source.y), (rlink[i].target.x), (rlink[i].target.y), (rlink[j].source.x), (rlink[j].source.y), (rlink[j].target.x), (rlink[j].target.y))){
+							intersect++;
+						}
+					}
+				}
+
+				return intersect;
+			}
+
+			// Perpotongan garis hanya akan dicari jika linknya ada
+			if(rlink.length != 0) {
+				var sumIntersect = sumIntersection(rlink);
+				console.log("Jumlah perpotongan garis = ", sumIntersect);
+			}
+			// Cari jumlah perpotongan garis selesai
 
 			// Panah dan garis hanya akan dibuat jika linknya ada
 			if(rlink.length != 0) {
