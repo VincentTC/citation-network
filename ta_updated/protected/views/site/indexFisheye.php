@@ -595,78 +595,78 @@
 
 			force.nodes(data.nodes).links(data.links);
 
-			// Setting data untuk link, source dan targetnya uda data node
-			var rlink = new Array();
-			if(data.links.length != 0) {
-				var counter_rlink;
-				counter_rlink = 0;
-				var rlinks = new Array(data.links.length);
-				for(var i = 0; i < data.links.length; i++) {
-					var j, k, l, m;
-					j = 0; k = 0;
+			// // Setting data untuk link, source dan targetnya uda data node
+			// var rlink = new Array();
+			// if(data.links.length != 0) {
+			// 	var counter_rlink;
+			// 	counter_rlink = 0;
+			// 	var rlinks = new Array(data.links.length);
+			// 	for(var i = 0; i < data.links.length; i++) {
+			// 		var j, k, l, m;
+			// 		j = 0; k = 0;
 					 
-					var sudah_ketemu; sudah_ketemu = 0;
-					while(data.nodes.length > j && !sudah_ketemu) {
-						if(data.nodes[j].id.length == 1 && data.links[i].source != data.nodes[j].id[0]) {
-							j++;                
-						}
-						else if(data.nodes[j].id.length == 1 && data.links[i].source == data.nodes[j].id[0]) {
-							sudah_ketemu = 1;
-						}
-						else {
-							l = 0;
+			// 		var sudah_ketemu; sudah_ketemu = 0;
+			// 		while(data.nodes.length > j && !sudah_ketemu) {
+			// 			if(data.nodes[j].id.length == 1 && data.links[i].source != data.nodes[j].id[0]) {
+			// 				j++;                
+			// 			}
+			// 			else if(data.nodes[j].id.length == 1 && data.links[i].source == data.nodes[j].id[0]) {
+			// 				sudah_ketemu = 1;
+			// 			}
+			// 			else {
+			// 				l = 0;
 							 
-							while(data.nodes[j].id.length > l && data.links[i].source != data.nodes[j].id[l]) { // 3>0 && 1!=1
-								l++;
-							}
+			// 				while(data.nodes[j].id.length > l && data.links[i].source != data.nodes[j].id[l]) { // 3>0 && 1!=1
+			// 					l++;
+			// 				}
  
-							if(data.nodes[j].id.length < l || data.links[i].source != data.nodes[j].id[l]) {
-								j++;
-							}
-							else if (data.nodes[j].id.length > l && data.links[i].source == data.nodes[j].id[l]) {
-								sudah_ketemu = 1;
-							}
-						}
-					}
+			// 				if(data.nodes[j].id.length < l || data.links[i].source != data.nodes[j].id[l]) {
+			// 					j++;
+			// 				}
+			// 				else if (data.nodes[j].id.length > l && data.links[i].source == data.nodes[j].id[l]) {
+			// 					sudah_ketemu = 1;
+			// 				}
+			// 			}
+			// 		}
 					 
-					sudah_ketemu = 0;
+			// 		sudah_ketemu = 0;
 					 
-					while(data.nodes.length > k && !sudah_ketemu) {
-						// console.log(data.nodes[k]);
-						if(data.nodes[k].id.length == 1 && data.links[i].target != data.nodes[k].id[0]) {
-							k++;
-						}
-						else if (data.nodes[k].id.length == 1 && data.links[i].target == data.nodes[k].id[0]) {
-							sudah_ketemu = 1;
-						}
+			// 		while(data.nodes.length > k && !sudah_ketemu) {
+			// 			// console.log(data.nodes[k]);
+			// 			if(data.nodes[k].id.length == 1 && data.links[i].target != data.nodes[k].id[0]) {
+			// 				k++;
+			// 			}
+			// 			else if (data.nodes[k].id.length == 1 && data.links[i].target == data.nodes[k].id[0]) {
+			// 				sudah_ketemu = 1;
+			// 			}
 						 
-						else {
-							m = 0;
+			// 			else {
+			// 				m = 0;
 							 
-							while(data.nodes[k].id.length > m && data.links[i].target != data.nodes[k].id[m]) {
-								m++;
-							}
+			// 				while(data.nodes[k].id.length > m && data.links[i].target != data.nodes[k].id[m]) {
+			// 					m++;
+			// 				}
 							 
-							if(data.nodes[k].id.length < m || data.links[i].target != data.nodes[k].id[m]) {
-								k++;
-							}
-							else if(data.nodes[k].id.length > m && data.links[i].target == data.nodes[k].id[m]) {
-								sudah_ketemu = 1;
-							}
-						}
-					}
+			// 				if(data.nodes[k].id.length < m || data.links[i].target != data.nodes[k].id[m]) {
+			// 					k++;
+			// 				}
+			// 				else if(data.nodes[k].id.length > m && data.links[i].target == data.nodes[k].id[m]) {
+			// 					sudah_ketemu = 1;
+			// 				}
+			// 			}
+			// 		}
 					 
-					// Untuk melist semua kemungkinan apakah source dan target berada dalam 1 level atau tidak
-					if(j < data.nodes.length && k < data.nodes.length && ((data.nodes[j].id.length == 1 && data.nodes[k].id.length == 1 && data.links[i].target == data.nodes[k].id && data.links[i].source == data.nodes[j].id) || (data.nodes[j].id.length > 1 && data.nodes[k].id.length > 1 && data.links[i].target == data.nodes[k].id[m] && data.links[i].source == data.nodes[j].id[l]) || (data.nodes[j].id.length == 1 && data.nodes[k].id.length > 1 && data.links[i].target == data.nodes[k].id[m] && data.links[i].source == data.nodes[j].id) ||(data.nodes[j].id.length > 1 && data.nodes[k].id.length == 1 && data.links[i].target == data.nodes[k].id && data.links[i].source ==data.nodes[j].id[l]))) {
+			// 		// Untuk melist semua kemungkinan apakah source dan target berada dalam 1 level atau tidak
+			// 		if(j < data.nodes.length && k < data.nodes.length && ((data.nodes[j].id.length == 1 && data.nodes[k].id.length == 1 && data.links[i].target == data.nodes[k].id && data.links[i].source == data.nodes[j].id) || (data.nodes[j].id.length > 1 && data.nodes[k].id.length > 1 && data.links[i].target == data.nodes[k].id[m] && data.links[i].source == data.nodes[j].id[l]) || (data.nodes[j].id.length == 1 && data.nodes[k].id.length > 1 && data.links[i].target == data.nodes[k].id[m] && data.links[i].source == data.nodes[j].id) ||(data.nodes[j].id.length > 1 && data.nodes[k].id.length == 1 && data.links[i].target == data.nodes[k].id && data.links[i].source ==data.nodes[j].id[l]))) {
 						 
-						rlink[counter_rlink] = new Array();
-						rlink[counter_rlink].source = data.nodes[j];
+			// 			rlink[counter_rlink] = new Array();
+			// 			rlink[counter_rlink].source = data.nodes[j];
 						 
-						rlink[counter_rlink].target = data.nodes[k];
-						counter_rlink++;
-					} else {}
-				}
-			}
+			// 			rlink[counter_rlink].target = data.nodes[k];
+			// 			counter_rlink++;
+			// 		} else {}
+			// 	}
+			// }
 			// console.log(rlink);
 
 
@@ -1929,79 +1929,79 @@
 				return ((targetx * miring - targetx * r - sourcex * miring + sourcex * r) / miring) + sourcex;
 			}
 
-			// // Setting data untuk link, source dan targetnya ud data node
-			// var rlink = new Array();
-			// if(data.links.length != 0) {
-			// 	var counter_rlink;
-			// 	counter_rlink = 0;
-			// 	var rlinks = new Array(data.links.length);
-			// 	for(var i = 0; i < data.links.length; i++) {
-			// 		var j, k, l, m;
-			// 		j = 0; k = 0;
+			// Setting data untuk link, source dan targetnya ud data node
+			var rlink = new Array();
+			if(data.links.length != 0) {
+				var counter_rlink;
+				counter_rlink = 0;
+				var rlinks = new Array(data.links.length);
+				for(var i = 0; i < data.links.length; i++) {
+					var j, k, l, m;
+					j = 0; k = 0;
 					 
-			// 		var sudah_ketemu; sudah_ketemu = 0;
-			// 		while(data.nodes.length > j && !sudah_ketemu) {
-			// 			if(data.nodes[j].id.length == 1 && data.links[i].source != data.nodes[j].id[0]) {
-			// 				j++;                
-			// 			}
-			// 			else if(data.nodes[j].id.length == 1 && data.links[i].source == data.nodes[j].id[0]) {
-			// 				sudah_ketemu = 1;
-			// 			}
-			// 			else {
-			// 				l = 0;
+					var sudah_ketemu; sudah_ketemu = 0;
+					while(data.nodes.length > j && !sudah_ketemu) {
+						if(data.nodes[j].id.length == 1 && data.links[i].source != data.nodes[j].id[0]) {
+							j++;                
+						}
+						else if(data.nodes[j].id.length == 1 && data.links[i].source == data.nodes[j].id[0]) {
+							sudah_ketemu = 1;
+						}
+						else {
+							l = 0;
 							 
-			// 				while(data.nodes[j].id.length > l && data.links[i].source != data.nodes[j].id[l]) { // 3>0 && 1!=1
-			// 					l++;
-			// 				}
+							while(data.nodes[j].id.length > l && data.links[i].source != data.nodes[j].id[l]) { // 3>0 && 1!=1
+								l++;
+							}
  
-			// 				if(data.nodes[j].id.length < l || data.links[i].source != data.nodes[j].id[l]) {
-			// 					j++;
-			// 				}
-			// 				else if (data.nodes[j].id.length > l && data.links[i].source == data.nodes[j].id[l]) {
-			// 					sudah_ketemu = 1;
-			// 				}
-			// 			}
-			// 		}
+							if(data.nodes[j].id.length < l || data.links[i].source != data.nodes[j].id[l]) {
+								j++;
+							}
+							else if (data.nodes[j].id.length > l && data.links[i].source == data.nodes[j].id[l]) {
+								sudah_ketemu = 1;
+							}
+						}
+					}
 					 
-			// 		sudah_ketemu = 0;
+					sudah_ketemu = 0;
 					 
-			// 		while(data.nodes.length > k && !sudah_ketemu) {
-			// 			// console.log(data.nodes[k]);
-			// 			if(data.nodes[k].id.length == 1 && data.links[i].target != data.nodes[k].id[0]) {
-			// 				k++;
-			// 			}
-			// 			else if (data.nodes[k].id.length == 1 && data.links[i].target == data.nodes[k].id[0]) {
-			// 				sudah_ketemu = 1;
-			// 			}
+					while(data.nodes.length > k && !sudah_ketemu) {
+						// console.log(data.nodes[k]);
+						if(data.nodes[k].id.length == 1 && data.links[i].target != data.nodes[k].id[0]) {
+							k++;
+						}
+						else if (data.nodes[k].id.length == 1 && data.links[i].target == data.nodes[k].id[0]) {
+							sudah_ketemu = 1;
+						}
 						 
-			// 			else {
-			// 				m = 0;
+						else {
+							m = 0;
 							 
-			// 				while(data.nodes[k].id.length > m && data.links[i].target != data.nodes[k].id[m]) {
-			// 					m++;
-			// 				}
+							while(data.nodes[k].id.length > m && data.links[i].target != data.nodes[k].id[m]) {
+								m++;
+							}
 							 
-			// 				if(data.nodes[k].id.length < m || data.links[i].target != data.nodes[k].id[m]) {
-			// 					k++;
-			// 				}
-			// 				else if(data.nodes[k].id.length > m && data.links[i].target == data.nodes[k].id[m]) {
-			// 					sudah_ketemu = 1;
-			// 				}
-			// 			}
-			// 		}
+							if(data.nodes[k].id.length < m || data.links[i].target != data.nodes[k].id[m]) {
+								k++;
+							}
+							else if(data.nodes[k].id.length > m && data.links[i].target == data.nodes[k].id[m]) {
+								sudah_ketemu = 1;
+							}
+						}
+					}
 					 
-			// 		// Untuk melist semua kemungkinan apakah source dan target berada dalam 1 level atau tidak
-			// 		if(j < data.nodes.length && k < data.nodes.length && ((data.nodes[j].id.length == 1 && data.nodes[k].id.length == 1 && data.links[i].target == data.nodes[k].id && data.links[i].source == data.nodes[j].id) || (data.nodes[j].id.length > 1 && data.nodes[k].id.length > 1 && data.links[i].target == data.nodes[k].id[m] && data.links[i].source == data.nodes[j].id[l]) || (data.nodes[j].id.length == 1 && data.nodes[k].id.length > 1 && data.links[i].target == data.nodes[k].id[m] && data.links[i].source == data.nodes[j].id) ||(data.nodes[j].id.length > 1 && data.nodes[k].id.length == 1 && data.links[i].target == data.nodes[k].id && data.links[i].source ==data.nodes[j].id[l]))) {
+					// Untuk melist semua kemungkinan apakah source dan target berada dalam 1 level atau tidak
+					if(j < data.nodes.length && k < data.nodes.length && ((data.nodes[j].id.length == 1 && data.nodes[k].id.length == 1 && data.links[i].target == data.nodes[k].id && data.links[i].source == data.nodes[j].id) || (data.nodes[j].id.length > 1 && data.nodes[k].id.length > 1 && data.links[i].target == data.nodes[k].id[m] && data.links[i].source == data.nodes[j].id[l]) || (data.nodes[j].id.length == 1 && data.nodes[k].id.length > 1 && data.links[i].target == data.nodes[k].id[m] && data.links[i].source == data.nodes[j].id) ||(data.nodes[j].id.length > 1 && data.nodes[k].id.length == 1 && data.links[i].target == data.nodes[k].id && data.links[i].source ==data.nodes[j].id[l]))) {
 						 
-			// 			rlink[counter_rlink] = new Array();
-			// 			rlink[counter_rlink].source = data.nodes[j];
+						rlink[counter_rlink] = new Array();
+						rlink[counter_rlink].source = data.nodes[j];
 						 
-			// 			rlink[counter_rlink].target = data.nodes[k];
-			// 			counter_rlink++;
-			// 		} else {}
-			// 	}
-			// }
-			// console.log("rlink : ", rlink);
+						rlink[counter_rlink].target = data.nodes[k];
+						counter_rlink++;
+					} else {}
+				}
+			}
+			console.log("rlink : ", rlink);
 
 			if($("#mode_pan option:selected").text() == 'Linier') {
 				// Cari jumlah perpotongan garis
@@ -2227,17 +2227,17 @@
 				// console.log("grid_height : ", grid_height);
 
 				// make grid representation
-				var grid = new Array();
-			    if (grid_height != null && grid_width != null){
-			        // inisialisasi grid
-			        for (var i=0; i<grid_height; i++){
-			            var row = new Array();
-			            for (var j=0; j<grid_width; j++){
-			            	row[j] = 1;
-			            }
-			            grid[i] = row;
-			        }
-			    }
+				// var grid = new Array();
+			 //    if (grid_height != null && grid_width != null){
+			 //        // inisialisasi grid
+			 //        for (var i=-5; i<grid_height; i++){
+			 //            var row = new Array();
+			 //            for (var j=-5; j<grid_width; j++){
+			 //            	row[j] = 1;
+			 //            }
+			 //            grid[i] = row;
+			 //        }
+			 //    }
 
 			    // console.log("grid:", grid);
 			    // console.log("coordinate: ", coordinatesLine);
@@ -2281,14 +2281,15 @@
 					var planar_link = [];
 					var count_nonplanar_link = 1; // untuk menghitung jumlah link yang tidak memiliki path planar
 
-					var new_rlink = rlink.slice(0);
 					var nonplanar_line;
 
-					var max_change_order = 20;
+					var max_change_order = 10;
 					var change_order = 0;
 
-		   			while (count_nonplanar_link != 0 && change_order != 20){
+		   			while (count_nonplanar_link != 0 && change_order != max_change_order){
 
+				        // inisialisasi grid awal
+				        var grid = new Array();
 				        for (var i=0; i<grid_height; i++){
 				            var row = new Array();
 				            for (var j=0; j<grid_width; j++){
@@ -2297,42 +2298,29 @@
 				            grid[i] = row;
 				        }
 
+				        
+
 		   				planar_link = [];
 		   				count_nonplanar_link = 0;
 
 		   				console.log("ch", change_order);
+		   				
 
 		   				if (change_order != 0){
-		   					new_rlink.move(nonplanar_line,0);
+		   					var new_rlink = new_rlink_changed.slice(0);
+		   					// console.log("link2", new_rlink);
+		   				} else {
+				        	var new_rlink = rlink.slice(0);
+		   					var new_rlink_changed = rlink.slice(0);
+
+		   					// console.log("link", new_rlink);
 		   				}
 
 		   				var embedded_link = [new_rlink[0]];
 			   			var embedded_id = [];
 			   			embedded_id.push(0);
 
-			   			// embed link pertama
-			   			var planar_point = [{"x" : new_rlink[0].source.x, "y" : new_rlink[0].source.y}, 
-											{"x" : new_rlink[0].target.x, "y" : new_rlink[0].target.y}];
-						planar_link.push(planar_point);
-
-						for (var l=0; l<coordinatesLine[0].length; l++){
-							grid[Math.floor(coordinatesLine[0][l].y / 30)][Math.floor(coordinatesLine[0][l].x / 30)] = 0;
-						}
-
-						// for (var l=0; l<coordinatesLine[0].length; l++){
-						// 	for (var m=(Math.floor(coordinatesLine[0][l].y / 30))-1; m<(Math.floor(coordinatesLine[0][l].y / 30))+1; m++){
-						// 		for (var n=(Math.floor(coordinatesLine[0][l].x / 30))-1; n<(Math.floor(coordinatesLine[0][l].x / 30))+1; n++){
-						// 			grid[m][n] = 0;
-						// 		}
-						// 	}
-						// }
-
-						// // value = 0 untuk grid berisi node
-						// grid[Math.floor(new_rlink[0].source.y / 30)][Math.floor(new_rlink[0].source.x / 30)] = 0;
-						// grid[Math.floor(new_rlink[0].target.y / 30)][Math.floor(new_rlink[0].target.x / 30)] = 0;
-
-			   			for (var i=1; i<new_rlink.length; i++){
-							var embedded = 0;
+			   			for (var i=0; i<new_rlink.length; i++){
 
 							// for (var a=0; a<new_rlink.length; a++){
 							// 	if (a != i){
@@ -2342,16 +2330,46 @@
 							// 	}
 							// }
 
+							for (var a=0; a<new_rlink.length; a++){
+								if (a != i){
+									for (var b=Math.floor(new_rlink[a].source.y / 30)-1; b<Math.floor(new_rlink[a].source.y / 30)+1; b++){
+										for (var c=Math.floor(new_rlink[a].source.y / 30)-1; c<Math.floor(new_rlink[a].source.y / 30)+1; c++){
+											grid[b][c] = 0;
+										}
+									}
+									for (var b=Math.floor(new_rlink[a].target.y / 30)-1; b<Math.floor(new_rlink[a].target.y / 30)+1; b++){
+										for (var c=Math.floor(new_rlink[a].target.y / 30)-1; c<Math.floor(new_rlink[a].target.y / 30)+1; c++){
+											grid[b][c] = 0;
+										}
+									}
+								}
+							}
+
 							for (var j=0, len=embedded_link.length; j<len; j++){
-								// if (isIntersect((new_rlink[i].source.x), (new_rlink[i].source.y), (new_rlink[i].target.x), (new_rlink[i].target.y), (embedded_link[j].source.x), (embedded_link[j].source.y), (embedded_link[j].target.x), (embedded_link[j].target.y))){
-									
 									var graph = new Graph(grid, { diagonal: true });
 
 									var start = graph.grid[Math.floor(new_rlink[i].source.y / 30)][Math.floor(new_rlink[i].source.x / 30)];
 									var end = graph.grid[Math.floor(new_rlink[i].target.y / 30)][Math.floor(new_rlink[i].target.x / 30)];
 
+									if (grid[Math.floor(new_rlink[i].source.y / 30)][Math.floor(new_rlink[i].source.x / 30)] == 0){
+										grid[Math.floor(new_rlink[i].source.y / 30)][Math.floor(new_rlink[i].source.x / 30)] = 1;
+
+										var graph = new Graph(grid, { diagonal: true });
+
+										var start = graph.grid[Math.floor(new_rlink[i].source.y / 30)][Math.floor(new_rlink[i].source.x / 30)];
+										var end = graph.grid[Math.floor(new_rlink[i].target.y / 30)][Math.floor(new_rlink[i].target.x / 30)];
+									}
+									if (grid[Math.floor(new_rlink[i].target.y / 30)][Math.floor(new_rlink[i].target.x / 30)] == 0){
+										grid[Math.floor(new_rlink[i].target.y / 30)][Math.floor(new_rlink[i].target.x / 30)] = 1;
+
+										var graph = new Graph(grid, { diagonal: true });
+
+										var start = graph.grid[Math.floor(new_rlink[i].source.y / 30)][Math.floor(new_rlink[i].source.x / 30)];
+										var end = graph.grid[Math.floor(new_rlink[i].target.y / 30)][Math.floor(new_rlink[i].target.x / 30)];
+									}
+
 									var result = astar.search(graph, start, end);
-									console.log("result", result);
+									// console.log("result", result);
 
 									var planar_point = [];
 
@@ -2368,84 +2386,84 @@
 										// }
 										// planar_link.push(planar_point);
 
-									 //    for (var l=0; l<result.length; l++){
+										// for (var l=0; l<result.length; l++){
 										// 	grid[result[l].y][result[l].x] = 0;
 										// }
 
 										for (var l=0; l<result.length; l++){
-									    	for (var m=result[l].y-1; m<result[l].y+1; m++){
-									    		for (var n=result[l].x-1; n<result[l].x+1; n++){
-									    			if (m > 0 && n > 0)
+									    	for (var m=result[l].x-1; m<result[l].x+1; m++){
+									    		for (var n=result[l].y-1; n<result[l].y+1; n++){
+									    			// console.log("m",m);
+									    			// console.log("n",n);
+													if (m>0 && n>0)
 														grid[m][n] = 0;
 										    	}
 									    	}
+									    	// grid[result[l].y][result[l].x] = 0;
 										}
 										// console.log("i", i, "grid", grid);
 
-										// grid[4][31] = 0;
-										// grid[4][30] = 0;
-										// grid[4][29] = 0;
-										// grid[4][28] = 0;
-										// grid[4][27] = 0;
-										// grid[4][32] = 0;
-										// grid[4][33] = 0;
-										// grid[4][35] = 0;
-
 										embedded_id.push(i);
 										embedded_link.push(new_rlink[i]);
-										embedded = 1;
 
 										// console.log("i", i);
 										// console.log("len", len);
 
 										break;
 									} else {
-										planar_point.push({"x" : new_rlink[i].source.x, "y" : new_rlink[i].source.y}, 
-														  {"x" : new_rlink[i].target.x, "y" : new_rlink[i].target.y});
-										planar_link.push(planar_point);
-										count_nonplanar_link++;
-										nonplanar_line = i;
-										console.log("np line:", nonplanar_line);
+										if (j == embedded_link.length-1){
+
+											// console.log("i", i, "grid", grid);
+											// console.log("start", start);
+											// console.log("end", end);
+
+
+
+											planar_point.push({"x" : new_rlink[i].source.x, "y" : new_rlink[i].source.y}, 
+															  {"x" : new_rlink[i].target.x, "y" : new_rlink[i].target.y});
+											planar_link.push(planar_point);
+
+											// value = 0 untuk grid berisi node
+											grid[Math.floor(new_rlink[i].source.y / 30)][Math.floor(new_rlink[i].source.x / 30)] = 0;
+											grid[Math.floor(new_rlink[i].target.y / 30)][Math.floor(new_rlink[i].target.x / 30)] = 0;
+
+											embedded_id.push(i);
+											embedded_link.push(new_rlink[i]);
+
+											count_nonplanar_link++;
+											nonplanar_line = i;
+											console.log("np line:", nonplanar_line);
+
+											new_rlink_changed.move(nonplanar_line,0);
+											// console.log("new", new_rlink_changed);
+										}
 									}
-
-								    
-
-									// // value = 0 untuk grid berisi node
-									// grid[Math.floor(new_rlink[i].source.y / 30)][Math.floor(new_rlink[i].source.x / 30)] = 0;
-									// grid[Math.floor(new_rlink[i].target.y / 30)][Math.floor(new_rlink[i].target.x / 30)] = 0;
-
-									
-									
-									
-								// }
 							}
 
-							// embedded_id.push(i);
-							// embedded_link.push(new_rlink[i]);
-							// embedded = 1;
-
-							// if (embedded == 0){
-							// 	var planar_point = [{"x" : new_rlink[i].source.x, "y" : new_rlink[i].source.y}, 
-							// 						{"x" : new_rlink[i].target.x, "y" : new_rlink[i].target.y}];
-							// 	planar_link.push(planar_point);
-
-							// 	for (var l=0; l<coordinatesLine[i].length; l++){
-							// 		for (var m=(Math.floor(coordinatesLine[i][l].y / 30))-1; m<(Math.floor(coordinatesLine[i][l].y / 30))+1; m++){
-							// 			for (var n=(Math.floor(coordinatesLine[i][l].x / 30))-1; n<(Math.floor(coordinatesLine[i][l].x / 30))+1; n++){
-							// 				grid[m][n] = 0;
-							// 			}
-							// 		}
+							// for (var a=0; a<new_rlink.length; a++){
+							// 	if (a != i){
+							// 		// value = 0 untuk grid berisi node
+							// 		grid[Math.floor(new_rlink[a].source.y / 30)][Math.floor(new_rlink[a].source.x / 30)] = 1;
+							// 		grid[Math.floor(new_rlink[a].target.y / 30)][Math.floor(new_rlink[a].target.x / 30)] = 1;
 							// 	}
-
-							// 	// // value = 0 untuk grid berisi node
-							// 	// grid[Math.floor(new_rlink[i].source.y / 30)][Math.floor(new_rlink[i].source.x / 30)] = 0;
-							// 	// grid[Math.floor(new_rlink[i].target.y / 30)][Math.floor(new_rlink[i].target.x / 30)] = 0;
 							// }
 
-							if (!embedded_id.includes(i)) {
-								embedded_id.push(i);
-								embedded_link.push(new_rlink[i]);
+							for (var a=0; a<new_rlink.length; a++){
+								if (a != i){
+									for (var b=Math.floor(new_rlink[a].source.y / 30)-1; b<Math.floor(new_rlink[a].source.y / 30)+1; b++){
+										for (var c=Math.floor(new_rlink[a].source.y / 30)-1; c<Math.floor(new_rlink[a].source.y / 30)+1; c++){
+											grid[b][c] = 1;
+										}
+									}
+									for (var b=Math.floor(new_rlink[a].target.y / 30)-1; b<Math.floor(new_rlink[a].target.y / 30)+1; b++){
+										for (var c=Math.floor(new_rlink[a].target.y / 30)-1; c<Math.floor(new_rlink[a].target.y / 30)+1; c++){
+											grid[b][c] = 1;
+										}
+									}
+								}
 							}
+
+							
 						}
 						// count_nonplanar_link = 0;
 						change_order++;
@@ -2469,15 +2487,15 @@
 	                    .attr("marker-end", function(d, i) { return "url(#" + i + ")"; });
 					}
 
-					var dummy = [{"x" : 930, "y" : 150},  {"x" : 960, "y" : 120}];
-					var link = svgFisheye.select('.draggable').selectAll("g.link").data(dummy)
-						.enter().append("path")
-						.attr("d", line_function(dummy))
-						.attr("stroke", "red")
-	                    .attr("stroke-width", 3)
-	                    .attr("fill", "none")
-	                    .attr("class", "link")
-	                    .attr("marker-end", function(d, i) { return "url(#" + i + ")"; });
+					// var dummy = [{"x" : 870, "y" : 450},  {"x" : 360, "y" : 240}];
+					// var link = svgFisheye.select('.draggable').selectAll("g.link").data(dummy)
+					// 	.enter().append("path")
+					// 	.attr("d", line_function(dummy))
+					// 	.attr("stroke", "red")
+	    //                 .attr("stroke-width", 3)
+	    //                 .attr("fill", "none")
+	    //                 .attr("class", "link")
+	    //                 .attr("marker-end", function(d, i) { return "url(#" + i + ")"; });
 
 
 				} else { // mode distorsi
