@@ -2220,8 +2220,8 @@
 				var xMax = points_x_min[points_x_min.length-1].x;
 				var yMax = points_y_min[points_y_min.length-1].y;
 
-				var grid_width = xMax/30 + 50;
-				var grid_height = yMax/30 + 50;
+				var grid_width = xMax/20 + 50;
+				var grid_height = yMax/20 + 50;
 
 				// console.log("grid_width : ", grid_width);
 				// console.log("grid_height : ", grid_height);
@@ -2283,10 +2283,10 @@
 
 					var nonplanar_line;
 
-					var max_change_order = 10;
+					var max_change_order = 30;
 					var change_order = 0;
 
-		   			while (count_nonplanar_link != 0 && change_order != max_change_order){
+					while (count_nonplanar_link != 0 && change_order != max_change_order){
 
 				        // inisialisasi grid awal
 				        var grid = new Array();
@@ -2305,7 +2305,7 @@
 
 		   				console.log("ch", change_order);
 		   				
-
+		   				// ganti order array
 		   				if (change_order != 0){
 		   					var new_rlink = new_rlink_changed.slice(0);
 		   					// console.log("link2", new_rlink);
@@ -2316,158 +2316,342 @@
 		   					// console.log("link", new_rlink);
 		   				}
 
-		   				var embedded_link = [new_rlink[0]];
-			   			var embedded_id = [];
-			   			embedded_id.push(0);
-
 			   			for (var i=0; i<new_rlink.length; i++){
 
-							// for (var a=0; a<new_rlink.length; a++){
-							// 	if (a != i){
+							// for (var a=0; a<data.nodes.length; a++){
+							// 	// if (a != i){
 							// 		// value = 0 untuk grid berisi node
-							// 		grid[Math.floor(new_rlink[a].source.y / 30)][Math.floor(new_rlink[a].source.x / 30)] = 0;
-							// 		grid[Math.floor(new_rlink[a].target.y / 30)][Math.floor(new_rlink[a].target.x / 30)] = 0;
-							// 	}
+							// 		grid[Math.floor(data.nodes[a].y / 20)][Math.floor(data.nodes[a].x / 20)] = 0;
+							// 		grid[Math.floor(data.nodes[a].y / 20)][Math.floor(data.nodes[a].x / 20)] = 0;
+							// 	// }
 							// }
 
-							for (var a=0; a<new_rlink.length; a++){
-								if (a != i){
-									for (var b=Math.floor(new_rlink[a].source.y / 30)-1; b<Math.floor(new_rlink[a].source.y / 30)+1; b++){
-										for (var c=Math.floor(new_rlink[a].source.y / 30)-1; c<Math.floor(new_rlink[a].source.y / 30)+1; c++){
-											grid[b][c] = 0;
-										}
-									}
-									for (var b=Math.floor(new_rlink[a].target.y / 30)-1; b<Math.floor(new_rlink[a].target.y / 30)+1; b++){
-										for (var c=Math.floor(new_rlink[a].target.y / 30)-1; c<Math.floor(new_rlink[a].target.y / 30)+1; c++){
-											grid[b][c] = 0;
+							for (var a=0; a<data.nodes.length; a++){
+								if (data.nodes[a].id[0] != new_rlink[i].source.id[0] && data.nodes[a].id[0] != new_rlink[i].target.id[0]){
+									for (var b=Math.ceil(data.nodes[a].y / 20)-1; b<Math.ceil(data.nodes[a].y / 20)+1; b++){
+										for (var c=Math.ceil(data.nodes[a].x / 20)-1; c<Math.ceil(data.nodes[a].x / 20)+1; c++){
+											if (b>0 && c>0)
+												grid[b][c] = 0;
 										}
 									}
 								}
+								
 							}
 
-							for (var j=0, len=embedded_link.length; j<len; j++){
-									var graph = new Graph(grid, { diagonal: true });
-
-									var start = graph.grid[Math.floor(new_rlink[i].source.y / 30)][Math.floor(new_rlink[i].source.x / 30)];
-									var end = graph.grid[Math.floor(new_rlink[i].target.y / 30)][Math.floor(new_rlink[i].target.x / 30)];
-
-									if (grid[Math.floor(new_rlink[i].source.y / 30)][Math.floor(new_rlink[i].source.x / 30)] == 0){
-										grid[Math.floor(new_rlink[i].source.y / 30)][Math.floor(new_rlink[i].source.x / 30)] = 1;
-
-										var graph = new Graph(grid, { diagonal: true });
-
-										var start = graph.grid[Math.floor(new_rlink[i].source.y / 30)][Math.floor(new_rlink[i].source.x / 30)];
-										var end = graph.grid[Math.floor(new_rlink[i].target.y / 30)][Math.floor(new_rlink[i].target.x / 30)];
-									}
-									if (grid[Math.floor(new_rlink[i].target.y / 30)][Math.floor(new_rlink[i].target.x / 30)] == 0){
-										grid[Math.floor(new_rlink[i].target.y / 30)][Math.floor(new_rlink[i].target.x / 30)] = 1;
-
-										var graph = new Graph(grid, { diagonal: true });
-
-										var start = graph.grid[Math.floor(new_rlink[i].source.y / 30)][Math.floor(new_rlink[i].source.x / 30)];
-										var end = graph.grid[Math.floor(new_rlink[i].target.y / 30)][Math.floor(new_rlink[i].target.x / 30)];
-									}
-
-									var result = astar.search(graph, start, end);
-									// console.log("result", result);
-
-									var planar_point = [];
-
-									if (result.length != 0){
-										planar_point.push({"x" : new_rlink[i].source.x, "y" : new_rlink[i].source.y});
-										for(var k=1; k<result.length-1; k++){
-											planar_point.push({"x" : result[k].y * 30, "y" : result[k].x * 30});
-										}
-										planar_point.push({"x" : new_rlink[i].target.x, "y" : new_rlink[i].target.y});
-										planar_link.push(planar_point);
-
-										// for(var k=0; k<result.length; k++){
-										// 	planar_point.push({"x" : result[k].y * 30, "y" : result[k].x * 30});
-										// }
-										// planar_link.push(planar_point);
-
-										// for (var l=0; l<result.length; l++){
-										// 	grid[result[l].y][result[l].x] = 0;
-										// }
-
-										for (var l=0; l<result.length; l++){
-									    	for (var m=result[l].x-1; m<result[l].x+1; m++){
-									    		for (var n=result[l].y-1; n<result[l].y+1; n++){
-									    			// console.log("m",m);
-									    			// console.log("n",n);
-													if (m>0 && n>0)
-														grid[m][n] = 0;
-										    	}
-									    	}
-									    	// grid[result[l].y][result[l].x] = 0;
-										}
-										// console.log("i", i, "grid", grid);
-
-										embedded_id.push(i);
-										embedded_link.push(new_rlink[i]);
-
-										// console.log("i", i);
-										// console.log("len", len);
-
-										break;
-									} else {
-										if (j == embedded_link.length-1){
-
-											// console.log("i", i, "grid", grid);
-											// console.log("start", start);
-											// console.log("end", end);
-
-
-
-											planar_point.push({"x" : new_rlink[i].source.x, "y" : new_rlink[i].source.y}, 
-															  {"x" : new_rlink[i].target.x, "y" : new_rlink[i].target.y});
-											planar_link.push(planar_point);
-
-											// value = 0 untuk grid berisi node
-											grid[Math.floor(new_rlink[i].source.y / 30)][Math.floor(new_rlink[i].source.x / 30)] = 0;
-											grid[Math.floor(new_rlink[i].target.y / 30)][Math.floor(new_rlink[i].target.x / 30)] = 0;
-
-											embedded_id.push(i);
-											embedded_link.push(new_rlink[i]);
-
-											count_nonplanar_link++;
-											nonplanar_line = i;
-											console.log("np line:", nonplanar_line);
-
-											new_rlink_changed.move(nonplanar_line,0);
-											// console.log("new", new_rlink_changed);
-										}
-									}
+							// Jika grid awal dan tujuan dianggap obstacle, ubah value grid jadi 1
+							if (grid[Math.ceil(new_rlink[i].source.y / 20)][Math.ceil(new_rlink[i].source.x / 20)] == 0){
+								grid[Math.ceil(new_rlink[i].source.y / 20)][Math.ceil(new_rlink[i].source.x / 20)] = 1;
+							}
+							if (grid[Math.ceil(new_rlink[i].target.y / 20)][Math.ceil(new_rlink[i].target.x / 20)] == 0){
+								grid[Math.ceil(new_rlink[i].target.y / 20)][Math.ceil(new_rlink[i].target.x / 20)] = 1;
 							}
 
-							// for (var a=0; a<new_rlink.length; a++){
-							// 	if (a != i){
-							// 		// value = 0 untuk grid berisi node
-							// 		grid[Math.floor(new_rlink[a].source.y / 30)][Math.floor(new_rlink[a].source.x / 30)] = 1;
-							// 		grid[Math.floor(new_rlink[a].target.y / 30)][Math.floor(new_rlink[a].target.x / 30)] = 1;
-							// 	}
-							// }
+							var graph = new Graph(grid, { diagonal: true });
 
-							for (var a=0; a<new_rlink.length; a++){
-								if (a != i){
-									for (var b=Math.floor(new_rlink[a].source.y / 30)-1; b<Math.floor(new_rlink[a].source.y / 30)+1; b++){
-										for (var c=Math.floor(new_rlink[a].source.y / 30)-1; c<Math.floor(new_rlink[a].source.y / 30)+1; c++){
-											grid[b][c] = 1;
-										}
-									}
-									for (var b=Math.floor(new_rlink[a].target.y / 30)-1; b<Math.floor(new_rlink[a].target.y / 30)+1; b++){
-										for (var c=Math.floor(new_rlink[a].target.y / 30)-1; c<Math.floor(new_rlink[a].target.y / 30)+1; c++){
-											grid[b][c] = 1;
-										}
-									}
+							var start = graph.grid[Math.ceil(new_rlink[i].source.y / 20)][Math.ceil(new_rlink[i].source.x / 20)];
+							var end = graph.grid[Math.ceil(new_rlink[i].target.y / 20)][Math.ceil(new_rlink[i].target.x / 20)];
+
+							var result = astar.search(graph, start, end);
+							// console.log("result", result);
+
+							var planar_point = [];
+
+							if (result.length != 0){
+								planar_point.push({"x" : new_rlink[i].source.x, "y" : new_rlink[i].source.y});
+								for(var k=1; k<result.length-1; k++){
+									planar_point.push({"x" : result[k].y * 20, "y" : result[k].x * 20});
 								}
-							}
+								planar_point.push({"x" : new_rlink[i].target.x, "y" : new_rlink[i].target.y});
+								planar_link.push(planar_point);
 
-							
+								// for(var k=0; k<result.length; k++){
+								// 	planar_point.push({"x" : result[k].y * 20, "y" : result[k].x * 20});
+								// }
+								// planar_link.push(planar_point);
+
+								for (var l=0; l<result.length; l++){
+							    	for (var m=result[l].x-1; m<result[l].x+1; m++){
+							    		for (var n=result[l].y-1; n<result[l].y+1; n++){
+							    			// console.log("m",m);
+							    			// console.log("n",n);
+											if (m>0 && n>0)
+												grid[m][n] = 0;
+								    	}
+							    	}
+							    	// grid[result[l].x][result[l].y] = 0;
+								}
+
+								// var graph = new Graph(grid);
+
+								// var start = graph.grid[Math.ceil(new_rlink[i].source.y / 20)][Math.ceil(new_rlink[i].source.x / 20)];
+								// var end = graph.grid[Math.ceil(new_rlink[i].target.y / 20)][Math.ceil(new_rlink[i].target.x / 20)];
+
+								// var result = astar.search(graph, start, end);
+								// console.log("result", result);
+
+								// var planar_point = [];
+
+								// if (result.length != 0){
+								// 	for (var l=0; l<result.length; l++){
+								//     	for (var m=result[l].x-1; m<result[l].x+1; m++){
+								//     		for (var n=result[l].y-1; n<result[l].y+1; n++){
+								//     			// console.log("m",m);
+								//     			// console.log("n",n);
+								// 				if (m>0 && n>0)
+								// 					grid[m][n] = 0;
+								// 	    	}
+								//     	}
+								//     	// grid[result[l].x][result[l].y] = 0;
+								// 	}
+								// 	// console.log("i", i, "grid", grid);
+
+								// 	// console.log("i", i);
+								// 	// console.log("len", len);
+								// }
+
+								// for (var l=0; l<result.length; l++){
+								// 	grid[result[l].y][result[l].x] = 0;
+								// }
+
+								
+								// console.log("i", i, "grid", grid);
+
+
+								// console.log("i", i);
+								// console.log("len", len);
+							} else {
+
+								// console.log("i", i, "grid", grid);
+								// console.log("start", start);
+								// console.log("end", end);
+
+
+
+								planar_point.push({"x" : new_rlink[i].source.x, "y" : new_rlink[i].source.y}, 
+												  {"x" : new_rlink[i].target.x, "y" : new_rlink[i].target.y});
+								planar_link.push(planar_point);
+
+								// value = 0 untuk grid berisi node
+								grid[Math.ceil(new_rlink[i].source.y / 20)][Math.ceil(new_rlink[i].source.x / 20)] = 0;
+								grid[Math.ceil(new_rlink[i].target.y / 20)][Math.ceil(new_rlink[i].target.x / 20)] = 0;
+
+								count_nonplanar_link++;
+								nonplanar_line = i;
+								console.log("np line:", nonplanar_line);
+
+								new_rlink_changed.move(nonplanar_line,0);
+								// console.log("new", new_rlink_changed);
+							}
 						}
-						// count_nonplanar_link = 0;
 						change_order++;
 					}
+
+		   // 			while (count_nonplanar_link != 0 && change_order != max_change_order){
+
+				 //        // inisialisasi grid awal
+				 //        var grid = new Array();
+				 //        for (var i=0; i<grid_height; i++){
+				 //            var row = new Array();
+				 //            for (var j=0; j<grid_width; j++){
+				 //            	row[j] = 1;
+				 //            }
+				 //            grid[i] = row;
+				 //        }
+
+				        
+
+		   // 				planar_link = [];
+		   // 				count_nonplanar_link = 0;
+
+		   // 				console.log("ch", change_order);
+		   				
+		   // 				// ganti order array
+		   // 				if (change_order != 0){
+		   // 					var new_rlink = new_rlink_changed.slice(0);
+		   // 					// console.log("link2", new_rlink);
+		   // 				} else {
+				 //        	var new_rlink = rlink.slice(0);
+		   // 					var new_rlink_changed = rlink.slice(0);
+
+		   // 					// console.log("link", new_rlink);
+		   // 				}
+
+		   // 				var embedded_link = [new_rlink[0]];
+			  //  			var embedded_id = [];
+			  //  			embedded_id.push(0);
+
+			  //  			for (var i=0; i<new_rlink.length; i++){
+
+					// 		// for (var a=0; a<new_rlink.length; a++){
+					// 		// 	if (a != i){
+					// 		// 		// value = 0 untuk grid berisi node
+					// 		// 		grid[Math.floor(new_rlink[a].source.y / 25)][Math.floor(new_rlink[a].source.x / 25)] = 0;
+					// 		// 		grid[Math.floor(new_rlink[a].target.y / 25)][Math.floor(new_rlink[a].target.x / 25)] = 0;
+					// 		// 	}
+					// 		// }
+
+					// 		for (var a=0; a<new_rlink.length; a++){
+					// 			// if (a != i){
+					// 				for (var b=Math.floor(new_rlink[a].source.y / 25)-1; b<Math.floor(new_rlink[a].source.y / 25)+1; b++){
+					// 					for (var c=Math.floor(new_rlink[a].source.y / 25)-1; c<Math.floor(new_rlink[a].source.y / 25)+1; c++){
+					// 						if (b>0 && c>0)
+					// 							grid[b][c] = 0;
+					// 					}
+					// 				}
+					// 				for (var b=Math.floor(new_rlink[a].target.y / 25)-1; b<Math.floor(new_rlink[a].target.y / 25)+1; b++){
+					// 					for (var c=Math.floor(new_rlink[a].target.y / 25)-1; c<Math.floor(new_rlink[a].target.y / 25)+1; c++){
+					// 						if (b>0 && c>0)
+					// 							grid[b][c] = 0;
+					// 					}
+					// 				}
+					// 			// }
+					// 		}
+
+					// 		for (var j=0, len=embedded_link.length; j<len; j++){
+									
+
+					// 				if (grid[Math.floor(new_rlink[i].source.y / 25)][Math.floor(new_rlink[i].source.x / 25)] == 0){
+					// 					grid[Math.floor(new_rlink[i].source.y / 25)][Math.floor(new_rlink[i].source.x / 25)] = 1;
+					// 				}
+					// 				if (grid[Math.floor(new_rlink[i].target.y / 25)][Math.floor(new_rlink[i].target.x / 25)] == 0){
+					// 					grid[Math.floor(new_rlink[i].target.y / 25)][Math.floor(new_rlink[i].target.x / 25)] = 1;
+					// 				}
+
+					// 				var graph = new Graph(grid, { diagonal: true });
+
+					// 				var start = graph.grid[Math.floor(new_rlink[i].source.y / 25)][Math.floor(new_rlink[i].source.x / 25)];
+					// 				var end = graph.grid[Math.floor(new_rlink[i].target.y / 25)][Math.floor(new_rlink[i].target.x / 25)];
+
+					// 				var result = astar.search(graph, start, end);
+					// 				// console.log("result", result);
+
+					// 				var planar_point = [];
+
+					// 				if (result.length != 0){
+					// 					planar_point.push({"x" : new_rlink[i].source.x, "y" : new_rlink[i].source.y});
+					// 					for(var k=1; k<result.length-1; k++){
+					// 						planar_point.push({"x" : result[k].y * 25, "y" : result[k].x * 25});
+					// 					}
+					// 					planar_point.push({"x" : new_rlink[i].target.x, "y" : new_rlink[i].target.y});
+					// 					planar_link.push(planar_point);
+
+					// 					// for(var k=0; k<result.length; k++){
+					// 					// 	planar_point.push({"x" : result[k].y * 25, "y" : result[k].x * 25});
+					// 					// }
+					// 					// planar_link.push(planar_point);
+
+					// 					for (var l=0; l<result.length; l++){
+					// 				    	for (var m=result[l].x-1; m<result[l].x+1; m++){
+					// 				    		for (var n=result[l].y-1; n<result[l].y+1; n++){
+					// 				    			// console.log("m",m);
+					// 				    			// console.log("n",n);
+					// 								if (m>0 && n>0)
+					// 									grid[m][n] = 0;
+					// 					    	}
+					// 				    	}
+					// 				    	// grid[result[l].y][result[l].x] = 0;
+					// 					}
+
+					// 					var graph = new Graph(grid);
+
+					// 					var start = graph.grid[Math.floor(new_rlink[i].source.y / 25)][Math.floor(new_rlink[i].source.x / 25)];
+					// 					var end = graph.grid[Math.floor(new_rlink[i].target.y / 25)][Math.floor(new_rlink[i].target.x / 25)];
+
+					// 					var result = astar.search(graph, start, end);
+					// 					// console.log("result", result);
+
+					// 					var planar_point = [];
+
+					// 					if (result.length != 0){
+					// 						for (var l=0; l<result.length; l++){
+					// 					    // 	for (var m=result[l].x-1; m<result[l].x+1; m++){
+					// 					    // 		for (var n=result[l].y-1; n<result[l].y+1; n++){
+					// 					    // 			// console.log("m",m);
+					// 					    // 			// console.log("n",n);
+					// 									// if (m>0 && n>0)
+					// 									// 	grid[m][n] = 0;
+					// 						   //  	}
+					// 					    // 	}
+					// 					    	grid[result[l].y][result[l].x] = 0;
+					// 						}
+					// 						// console.log("i", i, "grid", grid);
+
+					// 						// console.log("i", i);
+					// 						// console.log("len", len);
+					// 					}
+
+					// 					// for (var l=0; l<result.length; l++){
+					// 					// 	grid[result[l].y][result[l].x] = 0;
+					// 					// }
+
+										
+					// 					// console.log("i", i, "grid", grid);
+
+					// 					embedded_id.push(i);
+					// 					embedded_link.push(new_rlink[i]);
+
+					// 					// console.log("i", i);
+					// 					// console.log("len", len);
+
+					// 					break;
+					// 				} else {
+					// 					if (j == embedded_link.length-1){
+
+					// 						// console.log("i", i, "grid", grid);
+					// 						// console.log("start", start);
+					// 						// console.log("end", end);
+
+
+
+					// 						planar_point.push({"x" : new_rlink[i].source.x, "y" : new_rlink[i].source.y}, 
+					// 										  {"x" : new_rlink[i].target.x, "y" : new_rlink[i].target.y});
+					// 						planar_link.push(planar_point);
+
+					// 						// value = 0 untuk grid berisi node
+					// 						grid[Math.floor(new_rlink[i].source.y / 25)][Math.floor(new_rlink[i].source.x / 25)] = 0;
+					// 						grid[Math.floor(new_rlink[i].target.y / 25)][Math.floor(new_rlink[i].target.x / 25)] = 0;
+
+					// 						embedded_id.push(i);
+					// 						embedded_link.push(new_rlink[i]);
+
+					// 						count_nonplanar_link++;
+					// 						nonplanar_line = i;
+					// 						console.log("np line:", nonplanar_line);
+
+					// 						new_rlink_changed.move(nonplanar_line,0);
+					// 						// console.log("new", new_rlink_changed);
+					// 					}
+					// 				}
+					// 		}
+
+					// 		// for (var a=0; a<new_rlink.length; a++){
+					// 		// 	if (a != i){
+					// 		// 		// value = 0 untuk grid berisi node
+					// 		// 		grid[Math.floor(new_rlink[a].source.y / 25)][Math.floor(new_rlink[a].source.x / 25)] = 1;
+					// 		// 		grid[Math.floor(new_rlink[a].target.y / 25)][Math.floor(new_rlink[a].target.x / 25)] = 1;
+					// 		// 	}
+					// 		// }
+
+					// 		// for (var a=0; a<new_rlink.length; a++){
+					// 		// 	if (a != i){
+					// 		// 		for (var b=Math.floor(new_rlink[a].source.y / 25)-1; b<Math.floor(new_rlink[a].source.y / 25)+1; b++){
+					// 		// 			for (var c=Math.floor(new_rlink[a].source.y / 25)-1; c<Math.floor(new_rlink[a].source.y / 25)+1; c++){
+					// 		// 				grid[b][c] = 1;
+					// 		// 			}
+					// 		// 		}
+					// 		// 		for (var b=Math.floor(new_rlink[a].target.y / 25)-1; b<Math.floor(new_rlink[a].target.y / 25)+1; b++){
+					// 		// 			for (var c=Math.floor(new_rlink[a].target.y / 25)-1; c<Math.floor(new_rlink[a].target.y / 25)+1; c++){
+					// 		// 				grid[b][c] = 1;
+					// 		// 			}
+					// 		// 		}
+					// 		// 	}
+					// 		// }
+
+							
+					// 	}
+					// 	// count_nonplanar_link = 0;
+					// 	change_order++;
+					// }
 
 					console.log("p", planar_link);
 
@@ -2487,7 +2671,7 @@
 	                    .attr("marker-end", function(d, i) { return "url(#" + i + ")"; });
 					}
 
-					// var dummy = [{"x" : 870, "y" : 450},  {"x" : 360, "y" : 240}];
+					// var dummy = [{"x" : 510, "y" : 120},  {"x" : 360, "y" : 240}];
 					// var link = svgFisheye.select('.draggable').selectAll("g.link").data(dummy)
 					// 	.enter().append("path")
 					// 	.attr("d", line_function(dummy))
