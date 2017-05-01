@@ -127,7 +127,7 @@
 		</a>
 		
 		<div>
-			<a href="#SavePaper" id="save_paper" class="button" style="margin-top:15px; margin-right: 30px; float:right">
+			<a href="#SavePaper" id="save_paper" class="button" style="margin-top:15px; margin-right: 34px; margin-bottom: 30px; float:right">
 				<!--<span class="glyphicon glyphicon-plus"></span>-->
 				Simpan Peta
 			</a>
@@ -565,6 +565,7 @@
 			d3.selectAll("circle").remove();
 			d3.selectAll("line").remove();
 			d3.selectAll(".label2").remove();
+			d3.selectAll(".link").remove();
 
 			data2 = JSON.parse(dataString); // Parse data dari basis data ke dalam bentuk JSON dan
 			 
@@ -1474,7 +1475,8 @@
 						.attr("stroke", "black")
 	                    .attr("stroke-width", 1)
 	                    .attr("fill", "none")
-	                    .attr("class", "link")
+	                    .attr("class", "tes0")
+	                    .classed("link", true)
 	                    .attr("marker-end", function(d, i) { return "url(#" + i + ")"; });
 					}
 
