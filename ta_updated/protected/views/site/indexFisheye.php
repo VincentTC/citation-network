@@ -132,17 +132,9 @@
 		</a>
 		
 		<div>
-			<a href="#SavePaper" id="save_paper" class="button" style="margin-top: 15px; margin-right: 30px; float:right">
+			<a href="#SavePaper" id="save_paper" class="button" style="margin-top: 15px; margin-right: 34px; margin-bottom: 30px;float:right">
 				<!--<span class="glyphicon glyphicon-plus"></span>-->
 				Simpan Peta
-			</a>
-		</div>
-
-		<!-- Fitur mengubah paper yang akan ditampilkan menjadi graf planar -->
-		<div>
-			<a href="#PlanarityPaper" id="planarity_paper" class="button" style="margin-top: 15px; margin-bottom: 30px; margin-right: 30px; float:right">
-				<!--<span class="glyphicon glyphicon-plus"></span>-->
-				Planarity
 			</a>
 		</div>
  
@@ -595,81 +587,6 @@
 
 			force.nodes(data.nodes).links(data.links);
 
-			// // Setting data untuk link, source dan targetnya uda data node
-			// var rlink = new Array();
-			// if(data.links.length != 0) {
-			// 	var counter_rlink;
-			// 	counter_rlink = 0;
-			// 	var rlinks = new Array(data.links.length);
-			// 	for(var i = 0; i < data.links.length; i++) {
-			// 		var j, k, l, m;
-			// 		j = 0; k = 0;
-					 
-			// 		var sudah_ketemu; sudah_ketemu = 0;
-			// 		while(data.nodes.length > j && !sudah_ketemu) {
-			// 			if(data.nodes[j].id.length == 1 && data.links[i].source != data.nodes[j].id[0]) {
-			// 				j++;                
-			// 			}
-			// 			else if(data.nodes[j].id.length == 1 && data.links[i].source == data.nodes[j].id[0]) {
-			// 				sudah_ketemu = 1;
-			// 			}
-			// 			else {
-			// 				l = 0;
-							 
-			// 				while(data.nodes[j].id.length > l && data.links[i].source != data.nodes[j].id[l]) { // 3>0 && 1!=1
-			// 					l++;
-			// 				}
- 
-			// 				if(data.nodes[j].id.length < l || data.links[i].source != data.nodes[j].id[l]) {
-			// 					j++;
-			// 				}
-			// 				else if (data.nodes[j].id.length > l && data.links[i].source == data.nodes[j].id[l]) {
-			// 					sudah_ketemu = 1;
-			// 				}
-			// 			}
-			// 		}
-					 
-			// 		sudah_ketemu = 0;
-					 
-			// 		while(data.nodes.length > k && !sudah_ketemu) {
-			// 			// console.log(data.nodes[k]);
-			// 			if(data.nodes[k].id.length == 1 && data.links[i].target != data.nodes[k].id[0]) {
-			// 				k++;
-			// 			}
-			// 			else if (data.nodes[k].id.length == 1 && data.links[i].target == data.nodes[k].id[0]) {
-			// 				sudah_ketemu = 1;
-			// 			}
-						 
-			// 			else {
-			// 				m = 0;
-							 
-			// 				while(data.nodes[k].id.length > m && data.links[i].target != data.nodes[k].id[m]) {
-			// 					m++;
-			// 				}
-							 
-			// 				if(data.nodes[k].id.length < m || data.links[i].target != data.nodes[k].id[m]) {
-			// 					k++;
-			// 				}
-			// 				else if(data.nodes[k].id.length > m && data.links[i].target == data.nodes[k].id[m]) {
-			// 					sudah_ketemu = 1;
-			// 				}
-			// 			}
-			// 		}
-					 
-			// 		// Untuk melist semua kemungkinan apakah source dan target berada dalam 1 level atau tidak
-			// 		if(j < data.nodes.length && k < data.nodes.length && ((data.nodes[j].id.length == 1 && data.nodes[k].id.length == 1 && data.links[i].target == data.nodes[k].id && data.links[i].source == data.nodes[j].id) || (data.nodes[j].id.length > 1 && data.nodes[k].id.length > 1 && data.links[i].target == data.nodes[k].id[m] && data.links[i].source == data.nodes[j].id[l]) || (data.nodes[j].id.length == 1 && data.nodes[k].id.length > 1 && data.links[i].target == data.nodes[k].id[m] && data.links[i].source == data.nodes[j].id) ||(data.nodes[j].id.length > 1 && data.nodes[k].id.length == 1 && data.links[i].target == data.nodes[k].id && data.links[i].source ==data.nodes[j].id[l]))) {
-						 
-			// 			rlink[counter_rlink] = new Array();
-			// 			rlink[counter_rlink].source = data.nodes[j];
-						 
-			// 			rlink[counter_rlink].target = data.nodes[k];
-			// 			counter_rlink++;
-			// 		} else {}
-			// 	}
-			// }
-			// console.log(rlink);
-
-
 			// var margin = {top: 10, right: 30, bottom: 30, left: 50};
 			// var width = 850 - margin.left - margin.right;
 			// var height = 500 - margin.top - margin.bottom;
@@ -754,7 +671,7 @@
 			}
 			 
 			var start;
-			if((minimum / 2) < 15) {
+			if((minimum / 2) < 10) {
 				// alert("Data yang dimasukkan terlalu banyak! Kurangi data");
 				if(document.URL.indexOf("#") >= 0) {
 					var location = document.URL.split("#");
@@ -2220,8 +2137,8 @@
 				var xMax = points_x_min[points_x_min.length-1].x;
 				var yMax = points_y_min[points_y_min.length-1].y;
 
-				var grid_width = xMax/20 + 50;
-				var grid_height = yMax/20 + 50;
+				var grid_width = xMax/25 + 50;
+				var grid_height = yMax/25 + 50;
 
 				// console.log("grid_width : ", grid_width);
 				// console.log("grid_height : ", grid_height);
@@ -2277,7 +2194,7 @@
 				 
 						
 
-				if($("#mode_pan option:selected").text() == 'Linier') {
+				if($("#mode_pan option:selected").text() == 'Linier' && sumIntersect > 0) {
 					var planar_link = [];
 					var count_nonplanar_link = 1; // untuk menghitung jumlah link yang tidak memiliki path planar
 
@@ -2321,51 +2238,65 @@
 							// for (var a=0; a<data.nodes.length; a++){
 							// 	// if (a != i){
 							// 		// value = 0 untuk grid berisi node
-							// 		grid[Math.floor(data.nodes[a].y / 20)][Math.floor(data.nodes[a].x / 20)] = 0;
-							// 		grid[Math.floor(data.nodes[a].y / 20)][Math.floor(data.nodes[a].x / 20)] = 0;
+							// 		grid[Math.floor(data.nodes[a].y / 25)][Math.floor(data.nodes[a].x / 25)] = 0;
+							// 		grid[Math.floor(data.nodes[a].y / 25)][Math.floor(data.nodes[a].x / 25)] = 0;
 							// 	// }
 							// }
 
 							for (var a=0; a<data.nodes.length; a++){
 								if (data.nodes[a].id[0] != new_rlink[i].source.id[0] && data.nodes[a].id[0] != new_rlink[i].target.id[0]){
-									for (var b=Math.ceil(data.nodes[a].y / 20)-1; b<Math.ceil(data.nodes[a].y / 20)+1; b++){
-										for (var c=Math.ceil(data.nodes[a].x / 20)-1; c<Math.ceil(data.nodes[a].x / 20)+1; c++){
+									for (var b=Math.ceil(data.nodes[a].y / 25)-1; b<Math.ceil(data.nodes[a].y / 25)+1; b++){
+										for (var c=Math.ceil(data.nodes[a].x / 25)-1; c<Math.ceil(data.nodes[a].x / 25)+1; c++){
 											if (b>0 && c>0)
 												grid[b][c] = 0;
 										}
 									}
 								}
-								
+								// grid[Math.ceil(data.nodes[a].y / 25)][Math.ceil(data.nodes[a].x / 25)] = 0;
 							}
 
 							// Jika grid awal dan tujuan dianggap obstacle, ubah value grid jadi 1
-							if (grid[Math.ceil(new_rlink[i].source.y / 20)][Math.ceil(new_rlink[i].source.x / 20)] == 0){
-								grid[Math.ceil(new_rlink[i].source.y / 20)][Math.ceil(new_rlink[i].source.x / 20)] = 1;
+							if (grid[Math.ceil(new_rlink[i].source.y / 25)][Math.ceil(new_rlink[i].source.x / 25)] == 0){
+								// grid[Math.ceil(new_rlink[i].source.y / 25)][Math.ceil(new_rlink[i].source.x / 25)] = 1;
+								for (var b=Math.ceil(new_rlink[i].source.y / 25)-1; b<Math.ceil(new_rlink[i].source.y / 25)+1; b++){
+									for (var c=Math.ceil(new_rlink[i].source.x / 25)-1; c<Math.ceil(new_rlink[i].source.x / 25)+1; c++){
+										if (b>0 && c>0)
+											grid[b][c] = 1;
+									}
+								}
 							}
-							if (grid[Math.ceil(new_rlink[i].target.y / 20)][Math.ceil(new_rlink[i].target.x / 20)] == 0){
-								grid[Math.ceil(new_rlink[i].target.y / 20)][Math.ceil(new_rlink[i].target.x / 20)] = 1;
+							if (grid[Math.ceil(new_rlink[i].target.y / 25)][Math.ceil(new_rlink[i].target.x / 25)] == 0){
+								// grid[Math.ceil(new_rlink[i].target.y / 25)][Math.ceil(new_rlink[i].target.x / 25)] = 1;
+								for (var b=Math.ceil(new_rlink[i].target.y / 25)-1; b<Math.ceil(new_rlink[i].target.y / 25)+1; b++){
+									for (var c=Math.ceil(new_rlink[i].target.x / 25)-1; c<Math.ceil(new_rlink[i].target.x / 25)+1; c++){
+										if (b>0 && c>0)
+											grid[b][c] = 1;
+									}
+								}
 							}
 
 							var graph = new Graph(grid, { diagonal: true });
+							// var graph = new Graph(grid);
 
-							var start = graph.grid[Math.ceil(new_rlink[i].source.y / 20)][Math.ceil(new_rlink[i].source.x / 20)];
-							var end = graph.grid[Math.ceil(new_rlink[i].target.y / 20)][Math.ceil(new_rlink[i].target.x / 20)];
+							var start = graph.grid[Math.ceil(new_rlink[i].source.y / 25)][Math.ceil(new_rlink[i].source.x / 25)];
+							var end = graph.grid[Math.ceil(new_rlink[i].target.y / 25)][Math.ceil(new_rlink[i].target.x / 25)];
 
 							var result = astar.search(graph, start, end);
 							// console.log("result", result);
+							console.log("start", start);
 
 							var planar_point = [];
 
 							if (result.length != 0){
 								planar_point.push({"x" : new_rlink[i].source.x, "y" : new_rlink[i].source.y});
-								for(var k=1; k<result.length-1; k++){
-									planar_point.push({"x" : result[k].y * 20, "y" : result[k].x * 20});
+								for(var k=0; k<result.length-1; k++){
+									planar_point.push({"x" : result[k].y * 25, "y" : result[k].x * 25});
 								}
 								planar_point.push({"x" : new_rlink[i].target.x, "y" : new_rlink[i].target.y});
 								planar_link.push(planar_point);
 
 								// for(var k=0; k<result.length; k++){
-								// 	planar_point.push({"x" : result[k].y * 20, "y" : result[k].x * 20});
+								// 	planar_point.push({"x" : result[k].y * 25, "y" : result[k].x * 25});
 								// }
 								// planar_link.push(planar_point);
 
@@ -2383,11 +2314,11 @@
 
 								// var graph = new Graph(grid);
 
-								// var start = graph.grid[Math.ceil(new_rlink[i].source.y / 20)][Math.ceil(new_rlink[i].source.x / 20)];
-								// var end = graph.grid[Math.ceil(new_rlink[i].target.y / 20)][Math.ceil(new_rlink[i].target.x / 20)];
+								// var start = graph.grid[Math.ceil(new_rlink[i].source.y / 25)][Math.ceil(new_rlink[i].source.x / 25)];
+								// var end = graph.grid[Math.ceil(new_rlink[i].target.y / 25)][Math.ceil(new_rlink[i].target.x / 25)];
 
 								// var result = astar.search(graph, start, end);
-								// console.log("result", result);
+								console.log("result", result);
 
 								// var planar_point = [];
 
@@ -2432,8 +2363,8 @@
 								planar_link.push(planar_point);
 
 								// value = 0 untuk grid berisi node
-								grid[Math.ceil(new_rlink[i].source.y / 20)][Math.ceil(new_rlink[i].source.x / 20)] = 0;
-								grid[Math.ceil(new_rlink[i].target.y / 20)][Math.ceil(new_rlink[i].target.x / 20)] = 0;
+								grid[Math.ceil(new_rlink[i].source.y / 25)][Math.ceil(new_rlink[i].source.x / 25)] = 0;
+								grid[Math.ceil(new_rlink[i].target.y / 25)][Math.ceil(new_rlink[i].target.x / 25)] = 0;
 
 								count_nonplanar_link++;
 								nonplanar_line = i;
@@ -2445,213 +2376,6 @@
 						}
 						change_order++;
 					}
-
-		   // 			while (count_nonplanar_link != 0 && change_order != max_change_order){
-
-				 //        // inisialisasi grid awal
-				 //        var grid = new Array();
-				 //        for (var i=0; i<grid_height; i++){
-				 //            var row = new Array();
-				 //            for (var j=0; j<grid_width; j++){
-				 //            	row[j] = 1;
-				 //            }
-				 //            grid[i] = row;
-				 //        }
-
-				        
-
-		   // 				planar_link = [];
-		   // 				count_nonplanar_link = 0;
-
-		   // 				console.log("ch", change_order);
-		   				
-		   // 				// ganti order array
-		   // 				if (change_order != 0){
-		   // 					var new_rlink = new_rlink_changed.slice(0);
-		   // 					// console.log("link2", new_rlink);
-		   // 				} else {
-				 //        	var new_rlink = rlink.slice(0);
-		   // 					var new_rlink_changed = rlink.slice(0);
-
-		   // 					// console.log("link", new_rlink);
-		   // 				}
-
-		   // 				var embedded_link = [new_rlink[0]];
-			  //  			var embedded_id = [];
-			  //  			embedded_id.push(0);
-
-			  //  			for (var i=0; i<new_rlink.length; i++){
-
-					// 		// for (var a=0; a<new_rlink.length; a++){
-					// 		// 	if (a != i){
-					// 		// 		// value = 0 untuk grid berisi node
-					// 		// 		grid[Math.floor(new_rlink[a].source.y / 25)][Math.floor(new_rlink[a].source.x / 25)] = 0;
-					// 		// 		grid[Math.floor(new_rlink[a].target.y / 25)][Math.floor(new_rlink[a].target.x / 25)] = 0;
-					// 		// 	}
-					// 		// }
-
-					// 		for (var a=0; a<new_rlink.length; a++){
-					// 			// if (a != i){
-					// 				for (var b=Math.floor(new_rlink[a].source.y / 25)-1; b<Math.floor(new_rlink[a].source.y / 25)+1; b++){
-					// 					for (var c=Math.floor(new_rlink[a].source.y / 25)-1; c<Math.floor(new_rlink[a].source.y / 25)+1; c++){
-					// 						if (b>0 && c>0)
-					// 							grid[b][c] = 0;
-					// 					}
-					// 				}
-					// 				for (var b=Math.floor(new_rlink[a].target.y / 25)-1; b<Math.floor(new_rlink[a].target.y / 25)+1; b++){
-					// 					for (var c=Math.floor(new_rlink[a].target.y / 25)-1; c<Math.floor(new_rlink[a].target.y / 25)+1; c++){
-					// 						if (b>0 && c>0)
-					// 							grid[b][c] = 0;
-					// 					}
-					// 				}
-					// 			// }
-					// 		}
-
-					// 		for (var j=0, len=embedded_link.length; j<len; j++){
-									
-
-					// 				if (grid[Math.floor(new_rlink[i].source.y / 25)][Math.floor(new_rlink[i].source.x / 25)] == 0){
-					// 					grid[Math.floor(new_rlink[i].source.y / 25)][Math.floor(new_rlink[i].source.x / 25)] = 1;
-					// 				}
-					// 				if (grid[Math.floor(new_rlink[i].target.y / 25)][Math.floor(new_rlink[i].target.x / 25)] == 0){
-					// 					grid[Math.floor(new_rlink[i].target.y / 25)][Math.floor(new_rlink[i].target.x / 25)] = 1;
-					// 				}
-
-					// 				var graph = new Graph(grid, { diagonal: true });
-
-					// 				var start = graph.grid[Math.floor(new_rlink[i].source.y / 25)][Math.floor(new_rlink[i].source.x / 25)];
-					// 				var end = graph.grid[Math.floor(new_rlink[i].target.y / 25)][Math.floor(new_rlink[i].target.x / 25)];
-
-					// 				var result = astar.search(graph, start, end);
-					// 				// console.log("result", result);
-
-					// 				var planar_point = [];
-
-					// 				if (result.length != 0){
-					// 					planar_point.push({"x" : new_rlink[i].source.x, "y" : new_rlink[i].source.y});
-					// 					for(var k=1; k<result.length-1; k++){
-					// 						planar_point.push({"x" : result[k].y * 25, "y" : result[k].x * 25});
-					// 					}
-					// 					planar_point.push({"x" : new_rlink[i].target.x, "y" : new_rlink[i].target.y});
-					// 					planar_link.push(planar_point);
-
-					// 					// for(var k=0; k<result.length; k++){
-					// 					// 	planar_point.push({"x" : result[k].y * 25, "y" : result[k].x * 25});
-					// 					// }
-					// 					// planar_link.push(planar_point);
-
-					// 					for (var l=0; l<result.length; l++){
-					// 				    	for (var m=result[l].x-1; m<result[l].x+1; m++){
-					// 				    		for (var n=result[l].y-1; n<result[l].y+1; n++){
-					// 				    			// console.log("m",m);
-					// 				    			// console.log("n",n);
-					// 								if (m>0 && n>0)
-					// 									grid[m][n] = 0;
-					// 					    	}
-					// 				    	}
-					// 				    	// grid[result[l].y][result[l].x] = 0;
-					// 					}
-
-					// 					var graph = new Graph(grid);
-
-					// 					var start = graph.grid[Math.floor(new_rlink[i].source.y / 25)][Math.floor(new_rlink[i].source.x / 25)];
-					// 					var end = graph.grid[Math.floor(new_rlink[i].target.y / 25)][Math.floor(new_rlink[i].target.x / 25)];
-
-					// 					var result = astar.search(graph, start, end);
-					// 					// console.log("result", result);
-
-					// 					var planar_point = [];
-
-					// 					if (result.length != 0){
-					// 						for (var l=0; l<result.length; l++){
-					// 					    // 	for (var m=result[l].x-1; m<result[l].x+1; m++){
-					// 					    // 		for (var n=result[l].y-1; n<result[l].y+1; n++){
-					// 					    // 			// console.log("m",m);
-					// 					    // 			// console.log("n",n);
-					// 									// if (m>0 && n>0)
-					// 									// 	grid[m][n] = 0;
-					// 						   //  	}
-					// 					    // 	}
-					// 					    	grid[result[l].y][result[l].x] = 0;
-					// 						}
-					// 						// console.log("i", i, "grid", grid);
-
-					// 						// console.log("i", i);
-					// 						// console.log("len", len);
-					// 					}
-
-					// 					// for (var l=0; l<result.length; l++){
-					// 					// 	grid[result[l].y][result[l].x] = 0;
-					// 					// }
-
-										
-					// 					// console.log("i", i, "grid", grid);
-
-					// 					embedded_id.push(i);
-					// 					embedded_link.push(new_rlink[i]);
-
-					// 					// console.log("i", i);
-					// 					// console.log("len", len);
-
-					// 					break;
-					// 				} else {
-					// 					if (j == embedded_link.length-1){
-
-					// 						// console.log("i", i, "grid", grid);
-					// 						// console.log("start", start);
-					// 						// console.log("end", end);
-
-
-
-					// 						planar_point.push({"x" : new_rlink[i].source.x, "y" : new_rlink[i].source.y}, 
-					// 										  {"x" : new_rlink[i].target.x, "y" : new_rlink[i].target.y});
-					// 						planar_link.push(planar_point);
-
-					// 						// value = 0 untuk grid berisi node
-					// 						grid[Math.floor(new_rlink[i].source.y / 25)][Math.floor(new_rlink[i].source.x / 25)] = 0;
-					// 						grid[Math.floor(new_rlink[i].target.y / 25)][Math.floor(new_rlink[i].target.x / 25)] = 0;
-
-					// 						embedded_id.push(i);
-					// 						embedded_link.push(new_rlink[i]);
-
-					// 						count_nonplanar_link++;
-					// 						nonplanar_line = i;
-					// 						console.log("np line:", nonplanar_line);
-
-					// 						new_rlink_changed.move(nonplanar_line,0);
-					// 						// console.log("new", new_rlink_changed);
-					// 					}
-					// 				}
-					// 		}
-
-					// 		// for (var a=0; a<new_rlink.length; a++){
-					// 		// 	if (a != i){
-					// 		// 		// value = 0 untuk grid berisi node
-					// 		// 		grid[Math.floor(new_rlink[a].source.y / 25)][Math.floor(new_rlink[a].source.x / 25)] = 1;
-					// 		// 		grid[Math.floor(new_rlink[a].target.y / 25)][Math.floor(new_rlink[a].target.x / 25)] = 1;
-					// 		// 	}
-					// 		// }
-
-					// 		// for (var a=0; a<new_rlink.length; a++){
-					// 		// 	if (a != i){
-					// 		// 		for (var b=Math.floor(new_rlink[a].source.y / 25)-1; b<Math.floor(new_rlink[a].source.y / 25)+1; b++){
-					// 		// 			for (var c=Math.floor(new_rlink[a].source.y / 25)-1; c<Math.floor(new_rlink[a].source.y / 25)+1; c++){
-					// 		// 				grid[b][c] = 1;
-					// 		// 			}
-					// 		// 		}
-					// 		// 		for (var b=Math.floor(new_rlink[a].target.y / 25)-1; b<Math.floor(new_rlink[a].target.y / 25)+1; b++){
-					// 		// 			for (var c=Math.floor(new_rlink[a].target.y / 25)-1; c<Math.floor(new_rlink[a].target.y / 25)+1; c++){
-					// 		// 				grid[b][c] = 1;
-					// 		// 			}
-					// 		// 		}
-					// 		// 	}
-					// 		// }
-
-							
-					// 	}
-					// 	// count_nonplanar_link = 0;
-					// 	change_order++;
-					// }
 
 					console.log("p", planar_link);
 
@@ -2671,7 +2395,7 @@
 	                    .attr("marker-end", function(d, i) { return "url(#" + i + ")"; });
 					}
 
-					// var dummy = [{"x" : 510, "y" : 120},  {"x" : 360, "y" : 240}];
+					// var dummy = [{"x" : 900, "y" : 280},  {"x" : 1080, "y" : 540}];
 					// var link = svgFisheye.select('.draggable').selectAll("g.link").data(dummy)
 					// 	.enter().append("path")
 					// 	.attr("d", line_function(dummy))

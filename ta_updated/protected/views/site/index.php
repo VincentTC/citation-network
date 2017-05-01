@@ -87,24 +87,26 @@
 		$cs = Yii::app()->getClientScript();
 		$cs->registerScriptFile($baseUrl.'/js/d3.min.js');
 		$cs->registerScriptFile($baseUrl.'/js/fisheye.js');
-		$cs->registerCssFile($baseUrl.'/css/fisheye.css');
 		$cs->registerScriptFile($baseUrl.'/js/json2.js');
 		$cs->registerScriptFile($baseUrl.'/js/context-menu.js');
 		$cs->registerScriptFile($baseUrl.'/js/bootstrap.js');
-		$cs->registerCssFile($baseUrl.'/css/bootstrap.css');
-		$cs->registerCssFile($baseUrl.'/css/jquery.dataTables.css');
-		$cs->registerCssFile($baseUrl.'/css/dataTables.scroller.css');
 		$cs->registerScriptFile($baseUrl.'/js/jquery.dataTables.js');
 		$cs->registerScriptFile($baseUrl.'/js/dataTables.scroller.js');
 		$cs->registerScriptFile($baseUrl.'/js/d3.layout.cloud.js');  
 		$cs->registerScriptFile($baseUrl.'/js/jquery.tipsy.js');
 		// $cs->registerScriptFile($baseUrl.'/js/jquery.min.js');
 		$cs->registerScriptFile($baseUrl.'/js/intro.js');
+		$cs->registerScriptFile($baseUrl.'/js/fisheyePan.js'); 
+		$cs->registerScriptFile($baseUrl.'/js/aStar.js');
+
+		$cs->registerCssFile($baseUrl.'/css/fisheye.css');
+		$cs->registerCssFile($baseUrl.'/css/bootstrap.css');
+		$cs->registerCssFile($baseUrl.'/css/jquery.dataTables.css');
+		$cs->registerCssFile($baseUrl.'/css/dataTables.scroller.css');
 		$cs->registerCssFile($baseUrl.'/css/TA.css');
 		$cs->registerCssFile($baseUrl.'/css/tipsy.css');
 		$cs->registerCssFile($baseUrl.'/css/introjs.css');
 		$cs->registerCssFile($baseUrl.'/css/bootstrap-responsive.min.css');
-		$cs->registerScriptFile($baseUrl.'/js/fisheyePan.js'); 
 	?>
 
 	<!-- Tampilan di sebelah kanan peta penelitian, yaitu: jumlah paper, pemilihan parameter untuk: sumbu x, sumbu y, dan relasi -->
@@ -128,14 +130,6 @@
 			<a href="#SavePaper" id="save_paper" class="button" style="margin-top:15px; margin-right: 30px; float:right">
 				<!--<span class="glyphicon glyphicon-plus"></span>-->
 				Simpan Peta
-			</a>
-		</div>
-
-		<!-- Fitur mengubah paper yang akan ditampilkan menjadi graf planar -->
-		<div>
-			<a href="#PlanarityPaper" id="planarity_paper" class="button" style="margin-top: 15px; margin-bottom: 30px; margin-right: 30px; float:right">
-				<!--<span class="glyphicon glyphicon-plus"></span>-->
-				Planarity
 			</a>
 		</div>
  
@@ -577,6 +571,17 @@
 			data = data2.data3; // Ambil data dengan tag "data3" (berupa array of nodes)
  
 			data.nodes = getChildren(data.nodes); // Ambil anak-anak (tag "children") dari data sebelumnya (array of nodes)
+
+			// data.nodes.forEach(function(d) {
+			// 	d.x = x(d.sumbu_x)
+			// 	+ (x.rangeBand() / 2);
+			// 	d.y = y(d.sumbu_y)
+			// 	+ (y.rangeBand() / 2);
+			// });
+
+			// // x(d.source.sumbu_x)
+
+			console.log("data", data);
  
 			// Setting data untuk link, source dan targetnya ud data node
 			if(data.links.length != 0) {
@@ -649,6 +654,7 @@
 					} else {}
 				}
 			}
+			console.log("rlink", rlink);
 			 
 			var formatxAxis = d3.format('.0f');
 			var margin = {top: 10, right: 30, bottom: 30, left: 50};
@@ -744,7 +750,7 @@
 			}
 			 
 			var start;
-			if((minimum / 2) < 15) {
+			if((minimum / 2) < 10) {
 				// alert("Data yang dimasukkan terlalu banyak! Kurangi data");
 				if(document.URL.indexOf("#") >= 0) {
 					var location = document.URL.split("#");
@@ -987,7 +993,263 @@
 					});
 				}
 			}); 
- 
+
+			data.nodes.forEach(function(d) {
+				d.x = x(d.sumbu_x)
+				+ (x.rangeBand() / 2);
+				d.y = y(d.sumbu_y)
+				+ (y.rangeBand() / 2);
+			});
+
+			// x(d.source.sumbu_x)
+
+			if($("#mode_pan option:selected").text() == 'Linier') {
+				// Cari jumlah perpotongan garis
+				function isIntersect(sourcex, sourcey, targetx, targety, sourcex2, sourcey2, targetx2, targety2){
+					var point1A = sourcey - targety;
+					var point1B = targetx - sourcex;
+					var point1C = -(sourcex * targety - targetx *sourcey);
+					var point2A = sourcey2 - targety2;
+					var point2B = targetx2 - sourcex2;
+					var point2C = -(sourcex2 * targety2 - targetx2 *sourcey2);
+
+					var D = point1A * point2B - point1B * point2A;
+					var Dx = point1C * point2B - point1B * point2C;
+					var Dy = point1A * point2C - point1C * point2A;
+
+					if (D != 0) {	
+						var x = Dx/D;
+						var y = Dy/D;
+						
+						// Jika perpotongan garis hanya diujung garis
+						if ((x == sourcex || x == sourcex2 || x == targetx || x == targetx2) || (y == sourcey || y == sourcey2 || y == targety || y == targety2)) {
+							return 0;
+						} else {
+							// Jika perpotongan garis di luar garis yang tergambar
+							if (((x > sourcex && x < targetx) || (x > targetx && x < sourcex)) && ((x > sourcex2 && x < targetx2) || (x > targetx2 && x < sourcex2)) && ((y > sourcey && y < targety) || (y > targety && y < sourcey)) && ((y > sourcey2 && y < targety2) || (y > targety2 && y < sourcey2))) {
+								// console.log("x = ", x);
+								// console.log("y = ", y);
+								return 1;
+							} else {
+								return 0;
+							}
+						}
+					} else {
+						return 0;
+					}
+				}
+
+				var intersectIDs = new Array();
+				var uniqueIntersectIDs = new Array();
+				var intersectRlink = new Array();
+				
+				function sumIntersection(rlink){
+					var intersect = 0;
+					var counter = 0;
+					// var counterunique = 0;
+					for(var i = 0; i < rlink.length-1; i++) {
+						for(var j = i+1; j < rlink.length; j++) {
+							// console.log("i : ", i);
+							// console.log("j : ", j);
+							if (isIntersect((rlink[i].source.x), (rlink[i].source.y), (rlink[i].target.x), (rlink[i].target.y), (rlink[j].source.x), (rlink[j].source.y), (rlink[j].target.x), (rlink[j].target.y))){
+								
+								// // tes array unik ID
+								// uniqueIntersectIDs[counterunique] = rlink[i].source.id[0];
+								// counterunique++;
+								// uniqueIntersectIDs[counterunique] = rlink[i].target.id[0];
+								// counterunique++;
+
+								// tes array of array ID
+								var intersectID = {"rlink": i, "source_id": rlink[i].source.id[0], "target_id": rlink[i].target.id[0]};
+								intersectIDs[counter] = intersectID;
+								intersectRlink[counter] = i;
+								counter++;
+
+								// // tes array unik ID
+								// uniqueIntersectIDs[counterunique] = rlink[j].source.id[0];
+								// counterunique++;
+								// uniqueIntersectIDs[counterunique] = rlink[j].target.id[0];
+
+								// tes array of array ID
+								// var intersectID = new Array(2);
+								// intersectID[0] = rlink[j].source.id[0];
+								// intersectID[1] = rlink[j].target.id[0];
+								var intersectID = {"rlink": j, "source_id": rlink[j].source.id[0], "target_id": rlink[j].target.id[0]};
+								intersectIDs[counter] = intersectID;
+								intersectRlink[counter] = j;
+								counter++;
+								// counterunique++;
+
+								//count intersect
+								intersect++;
+							}
+						}
+					}
+
+					return intersect;
+				}
+
+				// Perpotongan garis hanya akan dicari jika linknya ada
+				if(rlink.length != 0) {
+					var sumIntersect = sumIntersection(rlink);
+					console.log("Jumlah perpotongan garis = ", sumIntersect);
+				}
+				// Cari jumlah perpotongan garis selesai
+
+				// console.log("intersectIDs : ", intersectIDs);
+				// console.log("intersectRlink : ", intersectRlink);
+				// console.log("unik intersectIDs : ", uniqueIntersectIDs);
+
+				var planar_nodes = data.nodes.slice(0);
+				// var unique = sortUnique(uniqueIntersectIDs.slice(0));
+
+
+				function sortUnique(arr) {
+					var temp = arr.slice(0);
+				    temp.sort();
+				    var last_i;
+				    for (var i=0;i<temp.length;i++)
+				        if ((last_i = temp.lastIndexOf(temp[i])) !== i)
+				            temp.splice(i+1, last_i-i);
+				    return temp;
+				}
+
+				Array.prototype.move = function (old_index, new_index) {
+				    if (new_index >= this.length) {
+				        var k = new_index - this.length;
+				        while ((k--) + 1) {
+				            this.push(undefined);
+				        }
+				    }
+				    this.splice(new_index, 0, this.splice(old_index, 1)[0]);
+				    return this;
+				};
+
+				// Mengubah urutan nodes
+				function changeNodesOrder(nodes){
+					while (sumIntersect != 2){
+						for(var i=0; i<unique.length; i++){
+							for(var j=0; j<planar_nodes.length; j++){
+								planar_nodes.move(unique[i], j);
+								if (sumIntersect == 2){
+									break;
+								}
+							}
+						}
+					}
+				}
+
+				/////////////////////////////////////
+				/// Change to grid representation ///
+				/////////////////////////////////////
+				
+				// Bresenham algorithm to find array of point in a line
+				function bresenhamAlgorithm (source, target) {
+				    var coordinatesArray = new Array();
+				    
+				    // Translate coordinates
+				    var x1 = source.x;
+				    var y1 = source.y;
+				    var x2 = target.x;
+				    var y2 = target.y;
+
+				    // Define differences and error check
+				    var dx = Math.abs(x2 - x1);
+				    var dy = Math.abs(y2 - y1);
+				    var sx = (x1 < x2) ? 1 : -1;
+				    var sy = (y1 < y2) ? 1 : -1;
+				    var err = dx - dy;
+				    
+				    // Set first coordinates
+				    coordinatesArray.push({"x" : x1, "y" : y1});
+				    
+				    // Main loop
+				    while (!((x1 == x2) && (y1 == y2))) {
+				      	var e2 = err << 1;
+				      	if (e2 > -dy) {
+					    	err -= dy;
+					        x1 += sx;
+				      	}
+				      	if (e2 < dx) {
+					        err += dx;
+					        y1 += sy;
+				      	}
+				      	// Set coordinates
+				      	coordinatesArray.push({"x" : x1, "y" : y1});
+				    }
+				    // Return the result
+				    return coordinatesArray;
+				}
+
+				var coordinatesLine = new Array();
+				var points = new Array();
+
+				var counter_point = 0;
+
+				for(var i=0; i<rlink.length; i++){
+
+					// Masukan data koordinat garis 
+					coordinatesLine.push(bresenhamAlgorithm(rlink[i].source, rlink[i].target));
+
+					points[counter_point] = {"x" : rlink[i].source.x, "y" : rlink[i].source.y};
+					counter_point++;
+					points[counter_point] = {"x" : rlink[i].target.x, "y" : rlink[i].target.y};
+					counter_point++;
+				}
+
+				// console.log("coordinate: ", coordinatesLine);
+
+				// Urutkan 
+				var temp_points = points.slice(0);
+				var points_x_min = temp_points.sort(function(a, b){
+				    if(a.x < b.x) return -1;
+				    if(a.x > b.x) return 1;
+				    return 0;
+				});
+
+				var temp_points = points.slice(0);
+				var points_y_min = temp_points.sort(function(a, b){
+				    if(a.y < b.y) return -1;
+				    if(a.y > b.y) return 1;
+				    return 0;
+				});
+
+
+				var xMin = points_x_min[0].x;
+				var yMin = points_y_min[0].y;
+				var xMax = points_x_min[points_x_min.length-1].x;
+				var yMax = points_y_min[points_y_min.length-1].y;
+
+				var grid_width = xMax/25 + 50;
+				var grid_height = yMax/25 + 50;
+
+				// console.log("grid_width : ", grid_width);
+				// console.log("grid_height : ", grid_height);
+
+				// make grid representation
+				// var grid = new Array();
+			 //    if (grid_height != null && grid_width != null){
+			 //        // inisialisasi grid
+			 //        for (var i=-5; i<grid_height; i++){
+			 //            var row = new Array();
+			 //            for (var j=-5; j<grid_width; j++){
+			 //            	row[j] = 1;
+			 //            }
+			 //            grid[i] = row;
+			 //        }
+			 //    }
+
+			    // console.log("grid:", grid);
+			    // console.log("coordinate: ", coordinatesLine);
+
+				////////////////////////////////////////////
+				/// Change to grid representation selesai///
+				////////////////////////////////////////////
+			}
+
+			
+
+
 			// Panah dan garis hanya akan dibuat jika linknya ada
 			if(rlink.length != 0) {
 				// Untuk membuat panah
@@ -1013,86 +1275,409 @@
 					.attr("fill","none")
 					.attr("stroke","black");
 				 
-				// (X1, Y1) koordinat asal
-				// (X2, Y2) koordinat tujuan
-				 
-				// Hitung X : mencari x untuk x1 jika garisnya miring
-				// Hitung X2 : mencari x untuk x2 jika garisnya miring
-				var link = chart.select(".draggable").selectAll("g.link").data(rlink)
-				.enter().append("line")
-				.attr("class", "tes0")
-				.classed("link", true)
-				.attr("x1", function(d) {
-					if((y(d.target.sumbu_y) == y(d.source.sumbu_y)) && (x(d.target.sumbu_x) > x(d.source.sumbu_x))) {
-						return x(d.source.sumbu_x)+ (x.rangeBand() / 2) + r(d.source.id.length); 
+						
+
+				if($("#mode_pan option:selected").text() == 'Linier' && sumIntersect > 0) {
+					var planar_link = [];
+					var count_nonplanar_link = 1; // untuk menghitung jumlah link yang tidak memiliki path planar
+
+					var nonplanar_line;
+
+					var max_change_order = 30;
+					var change_order = 0;
+
+					while (count_nonplanar_link != 0 && change_order != max_change_order){
+
+				        // inisialisasi grid awal
+				        var grid = new Array();
+				        for (var i=0; i<grid_height; i++){
+				            var row = new Array();
+				            for (var j=0; j<grid_width; j++){
+				            	row[j] = 1;
+				            }
+				            grid[i] = row;
+				        }
+
+				        
+
+		   				planar_link = [];
+		   				count_nonplanar_link = 0;
+
+		   				console.log("ch", change_order);
+		   				
+		   				// ganti order array
+		   				if (change_order != 0){
+		   					var new_rlink = new_rlink_changed.slice(0);
+		   					// console.log("link2", new_rlink);
+		   				} else {
+				        	var new_rlink = rlink.slice(0);
+		   					var new_rlink_changed = rlink.slice(0);
+
+		   					// console.log("link", new_rlink);
+		   				}
+
+			   			for (var i=0; i<new_rlink.length; i++){
+
+							// for (var a=0; a<data.nodes.length; a++){
+							// 	// if (a != i){
+							// 		// value = 0 untuk grid berisi node
+							// 		grid[Math.floor(data.nodes[a].y / 25)][Math.floor(data.nodes[a].x / 25)] = 0;
+							// 		grid[Math.floor(data.nodes[a].y / 25)][Math.floor(data.nodes[a].x / 25)] = 0;
+							// 	// }
+							// }
+
+							for (var a=0; a<data.nodes.length; a++){
+								if (data.nodes[a].id[0] != new_rlink[i].source.id[0] && data.nodes[a].id[0] != new_rlink[i].target.id[0]){
+									for (var b=Math.ceil(data.nodes[a].y / 25)-1; b<Math.ceil(data.nodes[a].y / 25)+1; b++){
+										for (var c=Math.ceil(data.nodes[a].x / 25)-1; c<Math.ceil(data.nodes[a].x / 25)+1; c++){
+											if (b>0 && c>0)
+												grid[b][c] = 0;
+										}
+									}
+								}
+								// grid[Math.ceil(data.nodes[a].y / 25)][Math.ceil(data.nodes[a].x / 25)] = 0;
+							}
+
+							// Jika grid awal dan tujuan dianggap obstacle, ubah value grid jadi 1
+							if (grid[Math.ceil(new_rlink[i].source.y / 25)][Math.ceil(new_rlink[i].source.x / 25)] == 0){
+								// grid[Math.ceil(new_rlink[i].source.y / 25)][Math.ceil(new_rlink[i].source.x / 25)] = 1;
+								for (var b=Math.ceil(new_rlink[i].source.y / 25)-1; b<Math.ceil(new_rlink[i].source.y / 25)+1; b++){
+									for (var c=Math.ceil(new_rlink[i].source.x / 25)-1; c<Math.ceil(new_rlink[i].source.x / 25)+1; c++){
+										if (b>0 && c>0)
+											grid[b][c] = 1;
+									}
+								}
+							}
+							if (grid[Math.ceil(new_rlink[i].target.y / 25)][Math.ceil(new_rlink[i].target.x / 25)] == 0){
+								// grid[Math.ceil(new_rlink[i].target.y / 25)][Math.ceil(new_rlink[i].target.x / 25)] = 1;
+								for (var b=Math.ceil(new_rlink[i].target.y / 25)-1; b<Math.ceil(new_rlink[i].target.y / 25)+1; b++){
+									for (var c=Math.ceil(new_rlink[i].target.x / 25)-1; c<Math.ceil(new_rlink[i].target.x / 25)+1; c++){
+										if (b>0 && c>0)
+											grid[b][c] = 1;
+									}
+								}
+							}
+
+							var graph = new Graph(grid, { diagonal: true });
+							// var graph = new Graph(grid);
+
+							var start = graph.grid[Math.ceil(new_rlink[i].source.y / 25)][Math.ceil(new_rlink[i].source.x / 25)];
+							var end = graph.grid[Math.ceil(new_rlink[i].target.y / 25)][Math.ceil(new_rlink[i].target.x / 25)];
+
+							var result = astar.search(graph, start, end);
+							// console.log("result", result);
+							console.log("start", start);
+
+							var planar_point = [];
+
+							if (result.length != 0){
+								planar_point.push({"x" : new_rlink[i].source.x, "y" : new_rlink[i].source.y});
+								for(var k=0; k<result.length-1; k++){
+									planar_point.push({"x" : result[k].y * 25, "y" : result[k].x * 25});
+								}
+								planar_point.push({"x" : new_rlink[i].target.x, "y" : new_rlink[i].target.y});
+								planar_link.push(planar_point);
+
+								// for(var k=0; k<result.length; k++){
+								// 	planar_point.push({"x" : result[k].y * 25, "y" : result[k].x * 25});
+								// }
+								// planar_link.push(planar_point);
+
+								for (var l=0; l<result.length; l++){
+							    	for (var m=result[l].x-1; m<result[l].x+1; m++){
+							    		for (var n=result[l].y-1; n<result[l].y+1; n++){
+							    			// console.log("m",m);
+							    			// console.log("n",n);
+											if (m>0 && n>0)
+												grid[m][n] = 0;
+								    	}
+							    	}
+							    	// grid[result[l].x][result[l].y] = 0;
+								}
+
+								// var graph = new Graph(grid);
+
+								// var start = graph.grid[Math.ceil(new_rlink[i].source.y / 25)][Math.ceil(new_rlink[i].source.x / 25)];
+								// var end = graph.grid[Math.ceil(new_rlink[i].target.y / 25)][Math.ceil(new_rlink[i].target.x / 25)];
+
+								// var result = astar.search(graph, start, end);
+								console.log("result", result);
+
+								// var planar_point = [];
+
+								// if (result.length != 0){
+								// 	for (var l=0; l<result.length; l++){
+								//     	for (var m=result[l].x-1; m<result[l].x+1; m++){
+								//     		for (var n=result[l].y-1; n<result[l].y+1; n++){
+								//     			// console.log("m",m);
+								//     			// console.log("n",n);
+								// 				if (m>0 && n>0)
+								// 					grid[m][n] = 0;
+								// 	    	}
+								//     	}
+								//     	// grid[result[l].x][result[l].y] = 0;
+								// 	}
+								// 	// console.log("i", i, "grid", grid);
+
+								// 	// console.log("i", i);
+								// 	// console.log("len", len);
+								// }
+
+								// for (var l=0; l<result.length; l++){
+								// 	grid[result[l].y][result[l].x] = 0;
+								// }
+
+								
+								// console.log("i", i, "grid", grid);
+
+
+								// console.log("i", i);
+								// console.log("len", len);
+							} else {
+
+								// console.log("i", i, "grid", grid);
+								// console.log("start", start);
+								// console.log("end", end);
+
+
+
+								planar_point.push({"x" : new_rlink[i].source.x, "y" : new_rlink[i].source.y}, 
+												  {"x" : new_rlink[i].target.x, "y" : new_rlink[i].target.y});
+								planar_link.push(planar_point);
+
+								// value = 0 untuk grid berisi node
+								grid[Math.ceil(new_rlink[i].source.y / 25)][Math.ceil(new_rlink[i].source.x / 25)] = 0;
+								grid[Math.ceil(new_rlink[i].target.y / 25)][Math.ceil(new_rlink[i].target.x / 25)] = 0;
+
+								count_nonplanar_link++;
+								nonplanar_line = i;
+								console.log("np line:", nonplanar_line);
+
+								new_rlink_changed.move(nonplanar_line,0);
+								// console.log("new", new_rlink_changed);
+							}
+						}
+						change_order++;
 					}
-					 
-					// Garis horizontal jika lingkaran asal ada di kiri target
-					else if ((y(d.target.sumbu_y) == y(d.source.sumbu_y)) && (x(d.target.sumbu_x) < x(d.source.sumbu_x))) {
-						return x(d.source.sumbu_x) + (x.rangeBand() / 2) - r(d.source.id.length);
+
+					console.log("p", planar_link);
+
+					var line_function = d3.svg.line()
+	                    .x(function(d) { return d.x; })
+	                    .y(function(d) { return d.y; })
+	                    .interpolate("linear");
+
+					for(var i=0; i<planar_link.length; i++){
+						var link = chart.select('.draggable').selectAll("g.link").data(planar_link[i])
+						.enter().append("path")
+						.attr("d", line_function(planar_link[i]))
+						.attr("stroke", "black")
+	                    .attr("stroke-width", 1)
+	                    .attr("fill", "none")
+	                    .attr("class", "link")
+	                    .attr("marker-end", function(d, i) { return "url(#" + i + ")"; });
 					}
-					 
-					// Garis vertical
-					else if(x(d.target.sumbu_x) == x(d.source.sumbu_x)) {
-						return x(d.source.sumbu_x) + (x.rangeBand() / 2);
-					}
-					 
-					// Garis miring
-					else {
-						return hitungX((x(d.source.sumbu_x) + (x.rangeBand() / 2)),(y(d.source.sumbu_y) + (y.rangeBand() / 2)), (x(d.target.sumbu_x) + (x.rangeBand() / 2)), (y(d.target.sumbu_y) + (y.rangeBand() / 2)), r(d.source.id.length));
-					}
-				})
-				.attr("y1", function(d) { 
-					//garis horizontal
-					if(y(d.target.sumbu_y) == y(d.source.sumbu_y)) {
-						return y(d.source.sumbu_y) + (y.rangeBand() / 2);
-					}
-					 
-					//garis vertical dengan lingkaran asal ada di atas target
-					else if((x(d.target.sumbu_x) == x(d.source.sumbu_x)) && (y(d.target.sumbu_y) > y(d.source.sumbu_y))) {
-						return (y(d.source.sumbu_y)+ (y.rangeBand() / 2) + r(d.source.id.length));
-					}
-					 
-					//garis vertical dengan lingkaran asal ada di bawah target
-					else if((x(d.target.sumbu_x) == x(d.source.sumbu_x)) && (y(d.target.sumbu_y) < y(d.source.sumbu_y))) {
-						return (y(d.source.sumbu_y) + (y.rangeBand() / 2) - r(d.source.id.length));
-					}
- 
-					else {
-						var miring = Math.sqrt(Math.pow(((x(d.source.sumbu_x) + x.rangeBand() / 2)-(x(d.target.sumbu_x) + x.rangeBand() / 2)), 2) + Math.pow(((y(d.source.sumbu_y)+y.rangeBand() / 2)-(y(d.target.sumbu_y) + y.rangeBand() / 2)), 2));
-						return (y(d.source.sumbu_y) + y.rangeBand() / 2)-(((y(d.source.sumbu_y) + y.rangeBand() / 2)-(y(d.target.sumbu_y) + y.rangeBand() / 2)) * r(d.source.id.length) / miring);
-					}
-				})
-				// Sama seperti diatas, hanya untuk lingkaran target
-				.attr("x2", function(d) {
-					if((x(d.target.sumbu_x) > x(d.source.sumbu_x)) && (y(d.target.sumbu_y) == y(d.source.sumbu_y))) {
-						return x(d.target.sumbu_x) + (x.rangeBand() / 2) - r(d.target.id.length); 
-					}
-					else if ((x(d.target.sumbu_x) < x(d.source.sumbu_x)) && (y(d.target.sumbu_y) == y(d.source.sumbu_y))) {
-						return x(d.target.sumbu_x) + (x.rangeBand() / 2) + r(d.target.id.length); 
-					}
-					else if(x(d.target.sumbu_x) == x(d.source.sumbu_x)) {
-						return x(d.source.sumbu_x) + (x.rangeBand() / 2);
-					} else {
-						return hitungX2((x(d.source.sumbu_x) + (x.rangeBand() / 2)), (y(d.source.sumbu_y) + (y.rangeBand() / 2)),(x(d.target.sumbu_x) + (x.rangeBand() / 2)),(y(d.target.sumbu_y) + (y.rangeBand() / 2)), r(d.target.id.length));
-					}   
-				})
-				.attr("y2", function(d) {
-					if(y(d.target.sumbu_y) == y(d.source.sumbu_y)) {
-						return y(d.target.sumbu_y) + (y.rangeBand() / 2);
-					}
-					else if((x(d.target.sumbu_x) == x(d.source.sumbu_x)) && (y(d.target.sumbu_y) > y(d.source.sumbu_y))) {
-						return (y(d.target.sumbu_y) + (y.rangeBand() / 2) - r(d.target.id.length));
-					}
-					else if((x(d.target.sumbu_x) == x(d.source.sumbu_x)) && (y(d.target.sumbu_y) < y(d.source.sumbu_y))) {
-						return (y(d.target.sumbu_y) + (y.rangeBand() / 2) + r(d.target.id.length));
-					} else {
-						var miring = Math.sqrt(Math.pow(((x(d.source.sumbu_x) + x.rangeBand() / 2) - (x(d.target.sumbu_x) + x.rangeBand() / 2)), 2) + Math.pow(((y(d.source.sumbu_y) + y.rangeBand() / 2) - (y(d.target.sumbu_y) + y.rangeBand() / 2)), 2));
-						return y(d.source.sumbu_y) + (y.rangeBand() / 2)-(((miring - r(d.target.id.length)) * ((y(d.source.sumbu_y) + (y.rangeBand() / 2)) - (y(d.target.sumbu_y) + (y.rangeBand() / 2))) / miring));
-					}
-				})
-				.attr("marker-end", function(d, i) { return "url(#" + i + ")"; });
+
+					// var dummy = [{"x" : 900, "y" : 280},  {"x" : 1080, "y" : 540}];
+					// var link = chart.select('.draggable').selectAll("g.link").data(dummy)
+					// 	.enter().append("path")
+					// 	.attr("d", line_function(dummy))
+					// 	.attr("stroke", "red")
+	    //                 .attr("stroke-width", 3)
+	    //                 .attr("fill", "none")
+	    //                 .attr("class", "link")
+	    //                 .attr("marker-end", function(d, i) { return "url(#" + i + ")"; });
+
+
+				} else { // mode distorsi
+					// (X1, Y1) koordinat asal
+					// (X2, Y2) koordinat tujuan
+					var link = chart.select(".draggable").selectAll("g.link").data(rlink)
+					.enter().append("line")
+					.attr("class", "tes0")
+					.classed("link", true)
+					.attr("x1", function(d) {
+						if((y(d.target.sumbu_y) == y(d.source.sumbu_y)) && (x(d.target.sumbu_x) > x(d.source.sumbu_x))) {
+							return x(d.source.sumbu_x)+ (x.rangeBand() / 2) + r(d.source.id.length); 
+						}
+						 
+						// Garis horizontal jika lingkaran asal ada di kiri target
+						else if ((y(d.target.sumbu_y) == y(d.source.sumbu_y)) && (x(d.target.sumbu_x) < x(d.source.sumbu_x))) {
+							return x(d.source.sumbu_x) + (x.rangeBand() / 2) - r(d.source.id.length);
+						}
+						 
+						// Garis vertical
+						else if(x(d.target.sumbu_x) == x(d.source.sumbu_x)) {
+							return x(d.source.sumbu_x) + (x.rangeBand() / 2);
+						}
+						 
+						// Garis miring
+						else {
+							return hitungX((x(d.source.sumbu_x) + (x.rangeBand() / 2)),(y(d.source.sumbu_y) + (y.rangeBand() / 2)), (x(d.target.sumbu_x) + (x.rangeBand() / 2)), (y(d.target.sumbu_y) + (y.rangeBand() / 2)), r(d.source.id.length));
+						}
+					})
+					.attr("y1", function(d) { 
+						//garis horizontal
+						if(y(d.target.sumbu_y) == y(d.source.sumbu_y)) {
+							return y(d.source.sumbu_y) + (y.rangeBand() / 2);
+						}
+						 
+						//garis vertical dengan lingkaran asal ada di atas target
+						else if((x(d.target.sumbu_x) == x(d.source.sumbu_x)) && (y(d.target.sumbu_y) > y(d.source.sumbu_y))) {
+							return (y(d.source.sumbu_y)+ (y.rangeBand() / 2) + r(d.source.id.length));
+						}
+						 
+						//garis vertical dengan lingkaran asal ada di bawah target
+						else if((x(d.target.sumbu_x) == x(d.source.sumbu_x)) && (y(d.target.sumbu_y) < y(d.source.sumbu_y))) {
+							return (y(d.source.sumbu_y) + (y.rangeBand() / 2) - r(d.source.id.length));
+						}
+	 
+						else {
+							var miring = Math.sqrt(Math.pow(((x(d.source.sumbu_x) + x.rangeBand() / 2)-(x(d.target.sumbu_x) + x.rangeBand() / 2)), 2) + Math.pow(((y(d.source.sumbu_y)+y.rangeBand() / 2)-(y(d.target.sumbu_y) + y.rangeBand() / 2)), 2));
+							return (y(d.source.sumbu_y) + y.rangeBand() / 2)-(((y(d.source.sumbu_y) + y.rangeBand() / 2)-(y(d.target.sumbu_y) + y.rangeBand() / 2)) * r(d.source.id.length) / miring);
+						}
+					})
+					// Sama seperti diatas, hanya untuk lingkaran target
+					.attr("x2", function(d) {
+						if((x(d.target.sumbu_x) > x(d.source.sumbu_x)) && (y(d.target.sumbu_y) == y(d.source.sumbu_y))) {
+							return x(d.target.sumbu_x) + (x.rangeBand() / 2) - r(d.target.id.length); 
+						}
+						else if ((x(d.target.sumbu_x) < x(d.source.sumbu_x)) && (y(d.target.sumbu_y) == y(d.source.sumbu_y))) {
+							return x(d.target.sumbu_x) + (x.rangeBand() / 2) + r(d.target.id.length); 
+						}
+						else if(x(d.target.sumbu_x) == x(d.source.sumbu_x)) {
+							return x(d.source.sumbu_x) + (x.rangeBand() / 2);
+						} else {
+							return hitungX2((x(d.source.sumbu_x) + (x.rangeBand() / 2)), (y(d.source.sumbu_y) + (y.rangeBand() / 2)),(x(d.target.sumbu_x) + (x.rangeBand() / 2)),(y(d.target.sumbu_y) + (y.rangeBand() / 2)), r(d.target.id.length));
+						}   
+					})
+					.attr("y2", function(d) {
+						if(y(d.target.sumbu_y) == y(d.source.sumbu_y)) {
+							return y(d.target.sumbu_y) + (y.rangeBand() / 2);
+						}
+						else if((x(d.target.sumbu_x) == x(d.source.sumbu_x)) && (y(d.target.sumbu_y) > y(d.source.sumbu_y))) {
+							return (y(d.target.sumbu_y) + (y.rangeBand() / 2) - r(d.target.id.length));
+						}
+						else if((x(d.target.sumbu_x) == x(d.source.sumbu_x)) && (y(d.target.sumbu_y) < y(d.source.sumbu_y))) {
+							return (y(d.target.sumbu_y) + (y.rangeBand() / 2) + r(d.target.id.length));
+						} else {
+							var miring = Math.sqrt(Math.pow(((x(d.source.sumbu_x) + x.rangeBand() / 2) - (x(d.target.sumbu_x) + x.rangeBand() / 2)), 2) + Math.pow(((y(d.source.sumbu_y) + y.rangeBand() / 2) - (y(d.target.sumbu_y) + y.rangeBand() / 2)), 2));
+							return y(d.source.sumbu_y) + (y.rangeBand() / 2)-(((miring - r(d.target.id.length)) * ((y(d.source.sumbu_y) + (y.rangeBand() / 2)) - (y(d.target.sumbu_y) + (y.rangeBand() / 2))) / miring));
+						}
+					})
+					.attr("marker-end", function(d, i) { return "url(#" + i + ")"; });
+				}
 			}
+
+			//////////////////////////
+			// Membuat link selesai //
+			//////////////////////////
+ 
+			// // Panah dan garis hanya akan dibuat jika linknya ada
+			// if(rlink.length != 0) {
+			// 	// Untuk membuat panah
+			// 	var marker = chart.select(".draggable").selectAll("g.marker").data(data.links)
+			// 		.enter().append("svg:marker")
+			// 		.attr("id", function(d, i) { return i; })
+			// 		.attr("viewBox", "0 -5 10 10")
+			// 		.attr("refX", function(d) {
+			// 			if((y(d.target.value) == y(d.source.value)) && (x(d.target.sumbu_x) == x(d.source.sumbu_x))) {}
+						 
+			// 			if(x(d.target.sumbu_x) > x(d.source.sumbu_x)) {
+			// 				return 10;
+			// 			} else {
+			// 				return 10;
+			// 			}           
+			// 		})
+			// 		.attr("refY", 0)
+			// 		.attr("markerWidth", 6)
+			// 		.attr("markerHeight", 6)
+			// 		.attr("orient", "auto")
+			// 		.append("svg:path")
+			// 		.attr("d", "M0,-5L10,0L0,5")
+			// 		.attr("fill","none")
+			// 		.attr("stroke","black");
+				 
+			// 	// (X1, Y1) koordinat asal
+			// 	// (X2, Y2) koordinat tujuan
+				 
+			// 	// Hitung X : mencari x untuk x1 jika garisnya miring
+			// 	// Hitung X2 : mencari x untuk x2 jika garisnya miring
+			// 	var link = chart.select(".draggable").selectAll("g.link").data(rlink)
+			// 	.enter().append("line")
+			// 	.attr("class", "tes0")
+			// 	.classed("link", true)
+			// 	.attr("x1", function(d) {
+			// 		if((y(d.target.sumbu_y) == y(d.source.sumbu_y)) && (x(d.target.sumbu_x) > x(d.source.sumbu_x))) {
+			// 			return x(d.source.sumbu_x)+ (x.rangeBand() / 2) + r(d.source.id.length); 
+			// 		}
+					 
+			// 		// Garis horizontal jika lingkaran asal ada di kiri target
+			// 		else if ((y(d.target.sumbu_y) == y(d.source.sumbu_y)) && (x(d.target.sumbu_x) < x(d.source.sumbu_x))) {
+			// 			return x(d.source.sumbu_x) + (x.rangeBand() / 2) - r(d.source.id.length);
+			// 		}
+					 
+			// 		// Garis vertical
+			// 		else if(x(d.target.sumbu_x) == x(d.source.sumbu_x)) {
+			// 			return x(d.source.sumbu_x) + (x.rangeBand() / 2);
+			// 		}
+					 
+			// 		// Garis miring
+			// 		else {
+			// 			return hitungX((x(d.source.sumbu_x) + (x.rangeBand() / 2)),(y(d.source.sumbu_y) + (y.rangeBand() / 2)), (x(d.target.sumbu_x) + (x.rangeBand() / 2)), (y(d.target.sumbu_y) + (y.rangeBand() / 2)), r(d.source.id.length));
+			// 		}
+			// 	})
+			// 	.attr("y1", function(d) { 
+			// 		//garis horizontal
+			// 		if(y(d.target.sumbu_y) == y(d.source.sumbu_y)) {
+			// 			return y(d.source.sumbu_y) + (y.rangeBand() / 2);
+			// 		}
+					 
+			// 		//garis vertical dengan lingkaran asal ada di atas target
+			// 		else if((x(d.target.sumbu_x) == x(d.source.sumbu_x)) && (y(d.target.sumbu_y) > y(d.source.sumbu_y))) {
+			// 			return (y(d.source.sumbu_y)+ (y.rangeBand() / 2) + r(d.source.id.length));
+			// 		}
+					 
+			// 		//garis vertical dengan lingkaran asal ada di bawah target
+			// 		else if((x(d.target.sumbu_x) == x(d.source.sumbu_x)) && (y(d.target.sumbu_y) < y(d.source.sumbu_y))) {
+			// 			return (y(d.source.sumbu_y) + (y.rangeBand() / 2) - r(d.source.id.length));
+			// 		}
+ 
+			// 		else {
+			// 			var miring = Math.sqrt(Math.pow(((x(d.source.sumbu_x) + x.rangeBand() / 2)-(x(d.target.sumbu_x) + x.rangeBand() / 2)), 2) + Math.pow(((y(d.source.sumbu_y)+y.rangeBand() / 2)-(y(d.target.sumbu_y) + y.rangeBand() / 2)), 2));
+			// 			return (y(d.source.sumbu_y) + y.rangeBand() / 2)-(((y(d.source.sumbu_y) + y.rangeBand() / 2)-(y(d.target.sumbu_y) + y.rangeBand() / 2)) * r(d.source.id.length) / miring);
+			// 		}
+			// 	})
+			// 	// Sama seperti diatas, hanya untuk lingkaran target
+			// 	.attr("x2", function(d) {
+			// 		if((x(d.target.sumbu_x) > x(d.source.sumbu_x)) && (y(d.target.sumbu_y) == y(d.source.sumbu_y))) {
+			// 			return x(d.target.sumbu_x) + (x.rangeBand() / 2) - r(d.target.id.length); 
+			// 		}
+			// 		else if ((x(d.target.sumbu_x) < x(d.source.sumbu_x)) && (y(d.target.sumbu_y) == y(d.source.sumbu_y))) {
+			// 			return x(d.target.sumbu_x) + (x.rangeBand() / 2) + r(d.target.id.length); 
+			// 		}
+			// 		else if(x(d.target.sumbu_x) == x(d.source.sumbu_x)) {
+			// 			return x(d.source.sumbu_x) + (x.rangeBand() / 2);
+			// 		} else {
+			// 			return hitungX2((x(d.source.sumbu_x) + (x.rangeBand() / 2)), (y(d.source.sumbu_y) + (y.rangeBand() / 2)),(x(d.target.sumbu_x) + (x.rangeBand() / 2)),(y(d.target.sumbu_y) + (y.rangeBand() / 2)), r(d.target.id.length));
+			// 		}   
+			// 	})
+			// 	.attr("y2", function(d) {
+			// 		if(y(d.target.sumbu_y) == y(d.source.sumbu_y)) {
+			// 			return y(d.target.sumbu_y) + (y.rangeBand() / 2);
+			// 		}
+			// 		else if((x(d.target.sumbu_x) == x(d.source.sumbu_x)) && (y(d.target.sumbu_y) > y(d.source.sumbu_y))) {
+			// 			return (y(d.target.sumbu_y) + (y.rangeBand() / 2) - r(d.target.id.length));
+			// 		}
+			// 		else if((x(d.target.sumbu_x) == x(d.source.sumbu_x)) && (y(d.target.sumbu_y) < y(d.source.sumbu_y))) {
+			// 			return (y(d.target.sumbu_y) + (y.rangeBand() / 2) + r(d.target.id.length));
+			// 		} else {
+			// 			var miring = Math.sqrt(Math.pow(((x(d.source.sumbu_x) + x.rangeBand() / 2) - (x(d.target.sumbu_x) + x.rangeBand() / 2)), 2) + Math.pow(((y(d.source.sumbu_y) + y.rangeBand() / 2) - (y(d.target.sumbu_y) + y.rangeBand() / 2)), 2));
+			// 			return y(d.source.sumbu_y) + (y.rangeBand() / 2)-(((miring - r(d.target.id.length)) * ((y(d.source.sumbu_y) + (y.rangeBand() / 2)) - (y(d.target.sumbu_y) + (y.rangeBand() / 2))) / miring));
+			// 		}
+			// 	})
+			// 	.attr("marker-end", function(d, i) { return "url(#" + i + ")"; });
+			// }
 			// console.log(d3.transform(entering2.attr("transform")).translate[0]);
 
 			if ($("#mode_pan option:selected").text() == 'Linier'){
