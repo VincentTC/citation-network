@@ -59,7 +59,7 @@ var astar = {
             for (var i = 0, il = neighbors.length; i < il; ++i) {
                 var neighbor = neighbors[i];
 
-                if (neighbor.closed || neighbor.isWall()) {
+                if (neighbor.closed || neighbor.isWall() || neighbor.isWallTemporary()) {
                     // Not a valid node to process, skip to next neighbor.
                     continue;
                 }
@@ -261,6 +261,10 @@ GridNode.prototype.getCost = function(fromNeighbor) {
 
 GridNode.prototype.isWall = function() {
     return this.weight === 0;
+};
+
+GridNode.prototype.isWallTemporary = function() {
+    return this.weight === 2;
 };
 
 function BinaryHeap(scoreFunction) {

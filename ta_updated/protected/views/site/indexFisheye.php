@@ -2240,7 +2240,8 @@
 									for (var b=Math.round(data.nodes[a].y / 25)-1; b<Math.round(data.nodes[a].y / 25)+1; b++){
 										for (var c=Math.round(data.nodes[a].x / 25)-1; c<Math.round(data.nodes[a].x / 25)+1; c++){
 											if (b>0 && c>0)
-												grid[b][c] = 0;
+												if (grid[b][c] == 1)
+													grid[b][c] = 2;
 										}
 									}
 								}
@@ -2248,7 +2249,7 @@
 							}
 
 							// Jika grid awal dan tujuan dianggap obstacle, ubah value grid jadi 1
-							if (grid[Math.round(new_rlink[i].source.y / 25)][Math.round(new_rlink[i].source.x / 25)] == 0){
+							if (grid[Math.round(new_rlink[i].source.y / 25)][Math.round(new_rlink[i].source.x / 25)] == 2){
 								// grid[Math.round(new_rlink[i].source.y / 25)][Math.round(new_rlink[i].source.x / 25)] = 1;
 								for (var b=Math.round(new_rlink[i].source.y / 25)-1; b<Math.round(new_rlink[i].source.y / 25)+1; b++){
 									for (var c=Math.round(new_rlink[i].source.x / 25)-1; c<Math.round(new_rlink[i].source.x / 25)+1; c++){
@@ -2257,7 +2258,7 @@
 									}
 								}
 							}
-							if (grid[Math.round(new_rlink[i].target.y / 25)][Math.round(new_rlink[i].target.x / 25)] == 0){
+							if (grid[Math.round(new_rlink[i].target.y / 25)][Math.round(new_rlink[i].target.x / 25)] == 2 || grid[Math.round(new_rlink[i].target.y / 25)][Math.round(new_rlink[i].target.x / 25)] == 0){
 								// grid[Math.round(new_rlink[i].target.y / 25)][Math.round(new_rlink[i].target.x / 25)] = 1;
 								for (var b=Math.round(new_rlink[i].target.y / 25)-1; b<Math.round(new_rlink[i].target.y / 25)+1; b++){
 									for (var c=Math.round(new_rlink[i].target.x / 25)-1; c<Math.round(new_rlink[i].target.x / 25)+1; c++){
@@ -2273,8 +2274,8 @@
 							var start = graph.grid[Math.round(new_rlink[i].source.y / 25)][Math.round(new_rlink[i].source.x / 25)];
 							var end = graph.grid[Math.round(new_rlink[i].target.y / 25)][Math.floor(new_rlink[i].target.x / 25)];
 
-							var result = astar.search(graph, start, end, {heuristic: astar.heuristics.diagonal});
-							// var result = astar.search(graph, start, end, {heuristic: astar.heuristics.dijkstra});
+							// var result = astar.search(graph, start, end, {heuristic: astar.heuristics.diagonal});
+							var result = astar.search(graph, start, end, {heuristic: astar.heuristics.dijkstra});
 							// var result = astar.search(graph, start, end);
 							// console.log("result", result);
 							// console.log("start", start);
@@ -2418,6 +2419,7 @@
 					}
 
 					// console.log("p", planar_link);
+					console.log("path", path);
 
 					var line_function = d3.svg.line()
 	                    .x(function(d) { return d.x; })
