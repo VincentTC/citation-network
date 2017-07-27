@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.1.6
+-- version 4.2.11
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 12, 2014 at 06:40 AM
--- Server version: 5.6.16
--- PHP Version: 5.5.9
+-- Generation Time: Jul 27, 2017 at 05:13 PM
+-- Server version: 5.6.21
+-- PHP Version: 5.6.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -27,7 +27,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE IF NOT EXISTS `data_penelitian` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+`id` int(11) NOT NULL,
   `judul` text NOT NULL,
   `peneliti` text NOT NULL,
   `tahun_publikasi` int(11) NOT NULL,
@@ -39,9 +39,8 @@ CREATE TABLE IF NOT EXISTS `data_penelitian` (
   `metode` text NOT NULL,
   `deskripsi_metode` text NOT NULL,
   `hasil` text NOT NULL,
-  `creater` text NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=38 ;
+  `creater` text NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `data_penelitian`
@@ -67,9 +66,7 @@ INSERT INTO `data_penelitian` (`id`, `judul`, `peneliti`, `tahun_publikasi`, `ma
 (17, 'Exploiting Background Knowledge for Relation Extraction', 'Yee Seng Chan and Dan Roth', 2010, 'Supervised RE', 'Improve the performance of RE by considering the relationship between our relations of interest, as well as how they relate to some existing knowledge resources', 'Background Knowledge', 'GCE-2004 dataset', 'ACE-2004 dataset (catalog LDC2005T09 from the Linguistic Data Consortium) to conduct our experiments. ACE-2004 defines 7 coarse-grained relations and 23 fine-grained relations', 'Coarse-grained predictions', 'Using the coarse-grained predictions which should intuitively be more reliable, to improve the fine-grained predictions.Using Novel to contrain the predictions of the fine-grained.', 'Performing the usual evaluation on mentions gives similar performance figures. All the background knowledge helped to improve performance, providing a total improvement of 3.9 to our basic RE system. Improves the performance of coarse-grained relation predictions.', ''),
 (18, 'Automatic Evaluation of Relation Extraction Systems on Large-scale', 'Mirko Bronzi, Zhaochen Guo, Filipe Mesquita', 2012, 'Framework for large-scale evaluation of relation extraction systems', 'Framework for large-scale\r\nevaluation of relation extraction systems based on an automatic annotator that uses a public online database and a large web corpus.', 'Automatic Evaluation', 'ReVerb and SONEX', 'Compare two open RE systems: ReVerb and SONEX. The input corpus for this comparison is the New York Times corpus, composed by 1.8 million documents. ReVerb  extracts relational phrases using rules over part-of-speech tags and noun-phrase chunks.', 'Automatic annotator', 'Use of an automatic annotator: a system capable of verifying whether or not a fact was correctly extracted. This is done by leveraging external sources of data and text, which are not available to the systems being evaluated', 'About 63 million facts in G'', the superset of the ground truth G. ', ''),
 (19, 'Confidence Estimation Methods for Partially Supervised Relation Extraction', 'Eugene Agichtein', 2006, 'Extract structured relations between named entities', 'Extract structured relations between named entities (e.g., a company name, a location name, or a name of a drug or a disease) from unstructured documents with minimal human effort. ', 'Partially Supervised Relation Extraction', 'Three relations extracted', 'Three relations extracted from a collection of 145,000 articles from the New York Times from 1996, available as part of the North American News Text Corpus1.', 'Expectation Maximization (EM)', 'Expectation Maximization (EM) algorithms for estimating pattern and tuple confidence.', 'The EM-based methods have higher accuracy than the constraint-based method', ''),
-(20, 'A New Approach to Word Sense Disambiguation Based on Context Similarity ', 'M. Nameh, S.M. Fakhrahmad, M. Zolghadri Jahromi', 2011, 'Improve accuracy in WSD', 'The human mind is able to select the proper target equivalent of any source \r\nlanguage word by comprehension of the context.\r\n<br/>\r\nIn order to simulate this behavior in a machine, a huge amount of data will be required as input and the output may still not be free from errors.', 'Context Similarity ', 'TWA sense tagged data', 'In order to evaluate the proposed scheme, we used TWA sense tagged data which is a benchmark corpus developed at University of North Texas by Mihalcea and Yang in 2003. ', 'Inner product of vectors algorithm', 'Inner product of vectors algorithm. The proposed scheme is a supervised approach in which sense-tagged data is used to train the classifier.', 'The results are promising compared to the methods existing in the literature and were encouraging in most cases.  ', ''),
-(21, 'Unsupervised Word Sense Disambiguation Using Neighborhood Knowledge', 'Huang Heyan, Yang Zhizhuo, Jian Ping', 2011, 'context window size', 'It has been proved that expanding context window size around the target ambiguous word can help to enhance the WSD performance. However, expanding window size unboundedly will bring not only useful information but also some noise which may finally deteriorate the WSD performance. ', 'Neighborhood Knowledge', 'Sogou Chinese collocation relation', 'In the experiment, Sogou Chinese collocation relation was used to compute mutual information of words. ', 'Hierarchical learning strategy', 'This study proposes to construct an appropriate knowledge context for unsupervised WSD method by making use of a few neighbor sentences closed to the ambiguous sentence in the article.', 'The neighborhood knowledge can significantly improve the performance of single sentence WSD.', ''),
-(32, 'Semi-supervised Relation Extraction with Large-scale Word Clustering', 'Ang Sun, Ralph Grishman, Satoshi Sekine', 2011, 'Semi-supervised Relation Extraction with Large-scale Word Clustering', 'Cluster-based features in a systematic way ,several statistical methods for selecting effective clusters, impact of the size of training data on cluster features, analyze the performance improvements through an extensive experimental study.', 'Word Clustering', 'ACE 2004', 'We used TDT5 unlabeled data for \r\ninducing word clusters. It contains roughly 83 million words in 3.4 million sentences with a vocabulary size of 450K. We induced 1,000 word clusters for words that appeared at least twice in \r\nthe corpora. The reduced vocabulary contains 255K unique words.For relation extraction, we used the benchmark ACE 2004 training data. ', 'Hierarchical learning strategy', 'Simple learning framework that is similar to the hierarchical learning strategy. Specifically, train a binary classifier to distinguish between relation instances and non-relation instances. Then use only the annotated relation instances to train a multi-class classifier for the 7 relation types.', 'Zhou et al.(2007) : 78.2(P%) 63.4(R%) 70.1(F%)<BR/>\r\nZhao and Grishman (2005) : 69.2(P%) 71.5(R%) 70.4(F%)<BR/>\r\nOur Baseline : 73.4(P%) 67.7(R%) 70.4(F%)\r\nJiang and Zhai(2007) : 72.4(P%) 70.2(R%) 71.3(F%)', '');
+(20, 'A New Approach to Word Sense Disambiguation Based on Context Similarity ', 'M. Nameh, S.M. Fakhrahmad, M. Zolghadri Jahromi', 2011, 'Improve accuracy in WSD', 'The human mind is able to select the proper target equivalent of any source \r\nlanguage word by comprehension of the context.\r\n<br/>\r\nIn order to simulate this behavior in a machine, a huge amount of data will be required as input and the output may still not be free from errors.', 'Context Similarity ', 'TWA sense tagged data', 'In order to evaluate the proposed scheme, we used TWA sense tagged data which is a benchmark corpus developed at University of North Texas by Mihalcea and Yang in 2003. ', 'Inner product of vectors algorithm', 'Inner product of vectors algorithm. The proposed scheme is a supervised approach in which sense-tagged data is used to train the classifier.', 'The results are promising compared to the methods existing in the literature and were encouraging in most cases.  ', '');
 
 -- --------------------------------------------------------
 
@@ -78,13 +75,11 @@ INSERT INTO `data_penelitian` (`id`, `judul`, `peneliti`, `tahun_publikasi`, `ma
 --
 
 CREATE TABLE IF NOT EXISTS `metadata_penelitian` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+`id` int(11) NOT NULL,
   `col_name` text NOT NULL,
   `deskripsi` text NOT NULL,
-  `flag` tinyint(4) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `id` (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=20 ;
+  `flag` tinyint(4) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `metadata_penelitian`
@@ -111,11 +106,10 @@ INSERT INTO `metadata_penelitian` (`id`, `col_name`, `deskripsi`, `flag`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `metadata_relasi` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+`id` int(11) NOT NULL,
   `deskripsi` text NOT NULL,
-  `keterangan` text NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+  `keterangan` text NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `metadata_relasi`
@@ -132,13 +126,12 @@ INSERT INTO `metadata_relasi` (`id`, `deskripsi`, `keterangan`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `relasi` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+`id` int(11) NOT NULL,
   `id_relasi` int(11) NOT NULL,
   `id_paper_1` int(11) NOT NULL,
   `id_paper_2` int(11) NOT NULL,
-  `creater` text NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=15 ;
+  `creater` text NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `relasi`
@@ -146,17 +139,14 @@ CREATE TABLE IF NOT EXISTS `relasi` (
 
 INSERT INTO `relasi` (`id`, `id_relasi`, `id_paper_1`, `id_paper_2`, `creater`) VALUES
 (1, 2, 12, 11, '7'),
-(2, 1, 1, 2, ''),
 (3, 2, 12, 15, ''),
-(4, 2, 1, 2, ''),
 (5, 1, 2, 1, ''),
 (6, 1, 2, 6, ''),
 (7, 1, 2, 20, ''),
 (9, 1, 10, 11, ''),
-(10, 1, 12, 4, ''),
-(11, 1, 11, 10, '1'),
+(10, 1, 12, 16, ''),
 (12, 1, 2, 11, '1'),
-(13, 1, 8, 12, '1');
+(13, 1, 8, 14, '1');
 
 -- --------------------------------------------------------
 
@@ -165,15 +155,14 @@ INSERT INTO `relasi` (`id`, `id_relasi`, `id_paper_1`, `id_paper_2`, `creater`) 
 --
 
 CREATE TABLE IF NOT EXISTS `saved_map` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+`id` int(11) NOT NULL,
   `id_user` int(11) NOT NULL,
   `id_paper` text NOT NULL,
   `parameter_x` text NOT NULL,
   `parameter_y` text NOT NULL,
   `parameter_relation` text NOT NULL,
-  `map_name` text NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=19 ;
+  `map_name` text NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `saved_map`
@@ -183,7 +172,9 @@ INSERT INTO `saved_map` (`id`, `id_user`, `id_paper`, `parameter_x`, `parameter_
 (1, 7, '2,32,8,11,12,10', 'Domain Data', 'Tahun Publikasi', 'Citation', 'Text Clustering'),
 (16, 7, '8,10,11,12,13,14,15,16,17,18,19', 'Domain Data', 'Tahun Publikasi', 'Citation', 'Text Categorization'),
 (17, 7, '8,10,11,12,13,14,15,16,17,18,19,3,5,6', 'Peneliti', 'Tahun Publikasi', 'Citation', 'Summarization'),
-(18, 7, '2,8,10,11,12,32,6', 'Domain Data', 'Tahun Publikasi', 'Citation', 'Word Similarity');
+(18, 7, '2,8,10,11,12,32,6', 'Domain Data', 'Tahun Publikasi', 'Citation', 'Word Similarity'),
+(19, 1, '7,8,10,11,12,13,14,15,16,17,18,19,1,2,3,4,5,6,9,20,21,32', 'Domain Data', 'Tahun Publikasi', 'Citation', '22 paper'),
+(20, 2, '7,8,10,11,12,13,14,15,16,17,18,19,1,2,3,4,5,6,9,20,21,32', 'Judul', 'Tahun Publikasi', 'Citation', '22 paper');
 
 -- --------------------------------------------------------
 
@@ -195,8 +186,7 @@ CREATE TABLE IF NOT EXISTS `tbl_profiles` (
   `user_id` int(11) NOT NULL,
   `lastname` varchar(50) NOT NULL DEFAULT '',
   `firstname` varchar(50) NOT NULL DEFAULT '',
-  `birthday` date NOT NULL DEFAULT '0000-00-00',
-  PRIMARY KEY (`user_id`)
+  `birthday` date NOT NULL DEFAULT '0000-00-00'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -220,7 +210,7 @@ INSERT INTO `tbl_profiles` (`user_id`, `lastname`, `firstname`, `birthday`) VALU
 --
 
 CREATE TABLE IF NOT EXISTS `tbl_profiles_fields` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
+`id` int(10) NOT NULL,
   `varname` varchar(50) NOT NULL,
   `title` varchar(255) NOT NULL,
   `field_type` varchar(50) NOT NULL,
@@ -235,10 +225,8 @@ CREATE TABLE IF NOT EXISTS `tbl_profiles_fields` (
   `widget` varchar(255) NOT NULL DEFAULT '',
   `widgetparams` varchar(5000) NOT NULL DEFAULT '',
   `position` int(3) NOT NULL DEFAULT '0',
-  `visible` int(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`),
-  KEY `varname` (`varname`,`widget`,`visible`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+  `visible` int(1) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `tbl_profiles_fields`
@@ -256,7 +244,7 @@ INSERT INTO `tbl_profiles_fields` (`id`, `varname`, `title`, `field_type`, `fiel
 --
 
 CREATE TABLE IF NOT EXISTS `tbl_users` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+`id` int(11) NOT NULL,
   `username` varchar(20) NOT NULL,
   `password` varchar(128) NOT NULL,
   `email` varchar(128) NOT NULL,
@@ -264,13 +252,8 @@ CREATE TABLE IF NOT EXISTS `tbl_users` (
   `createtime` int(10) NOT NULL DEFAULT '0',
   `lastvisit` int(10) NOT NULL DEFAULT '0',
   `superuser` int(1) NOT NULL DEFAULT '0',
-  `status` int(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `username` (`username`),
-  UNIQUE KEY `email` (`email`),
-  KEY `status` (`status`),
-  KEY `superuser` (`superuser`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+  `status` int(1) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `tbl_users`
@@ -282,6 +265,97 @@ INSERT INTO `tbl_users` (`id`, `username`, `password`, `email`, `activkey`, `cre
 (7, 'yuli', 'f58a4d09485609a22c50547646e5282b', 'yuliantioenang@gmail.com', '4612463b486a397bb8299538cd9f1688', 1412464248, 1415770753, 0, 1),
 (8, 'yulianti', 'f58a4d09485609a22c50547646e5282b', 'yulianti@gmail.com', '800026964f7703ebec75fd8250494ffa', 1412584709, 1412584709, 0, 1);
 
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `data_penelitian`
+--
+ALTER TABLE `data_penelitian`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `metadata_penelitian`
+--
+ALTER TABLE `metadata_penelitian`
+ ADD PRIMARY KEY (`id`), ADD KEY `id` (`id`);
+
+--
+-- Indexes for table `metadata_relasi`
+--
+ALTER TABLE `metadata_relasi`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `relasi`
+--
+ALTER TABLE `relasi`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `saved_map`
+--
+ALTER TABLE `saved_map`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tbl_profiles`
+--
+ALTER TABLE `tbl_profiles`
+ ADD PRIMARY KEY (`user_id`);
+
+--
+-- Indexes for table `tbl_profiles_fields`
+--
+ALTER TABLE `tbl_profiles_fields`
+ ADD PRIMARY KEY (`id`), ADD KEY `varname` (`varname`,`widget`,`visible`);
+
+--
+-- Indexes for table `tbl_users`
+--
+ALTER TABLE `tbl_users`
+ ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `username` (`username`), ADD UNIQUE KEY `email` (`email`), ADD KEY `status` (`status`), ADD KEY `superuser` (`superuser`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `data_penelitian`
+--
+ALTER TABLE `data_penelitian`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=21;
+--
+-- AUTO_INCREMENT for table `metadata_penelitian`
+--
+ALTER TABLE `metadata_penelitian`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=20;
+--
+-- AUTO_INCREMENT for table `metadata_relasi`
+--
+ALTER TABLE `metadata_relasi`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `relasi`
+--
+ALTER TABLE `relasi`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14;
+--
+-- AUTO_INCREMENT for table `saved_map`
+--
+ALTER TABLE `saved_map`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=21;
+--
+-- AUTO_INCREMENT for table `tbl_profiles_fields`
+--
+ALTER TABLE `tbl_profiles_fields`
+MODIFY `id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT for table `tbl_users`
+--
+ALTER TABLE `tbl_users`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
